@@ -1,0 +1,1563 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Etsy Satıcı Eğitim Programı</title>
+<meta name="description" content="Emin Demir'in beş eğitim kaydından derlenmiş Etsy satıcı eğitim programı: 5 modül, 48 ders, videoyla birlikte akan tıklanabilir dakikalar.">
+<script>
+  // ——— YouTube kimlikleri buraya. Videolar liste dışı (unlisted) olabilir.
+  // Kimlik, izleme adresindeki v= parametresidir:
+  // https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  "dQw4w9WgXcQ"
+  const VIDEOLAR = {
+    1: "M4aKSYoKr40",
+    2: "YOUTUBE_ID_2",
+    3: "YOUTUBE_ID_3",
+    4: "YOUTUBE_ID_4",
+    5: "YOUTUBE_ID_5"
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Etsy Satıcı Eğitim Programı — tek dosyalık kurs
+   Sıcak, sakin, kitap hissi. Tek vurgu rengi: yanık kiremit.
+   ========================================================================== */
+
+:root{
+  --bg:#FBF8F4;
+  --surface:#FFFFFF;
+  --rail:#F4EEE6;
+  --line:#E7DFD4;
+  --ink:#241F1B;
+  --ink-2:#6B6058;
+  --accent:#B4451F;
+  --accent-soft:#FBEDE4;
+  --warn:#8E2C22;
+  --warn-soft:#FBEAE5;
+  --note:#8A6A1F;
+  --note-soft:#FAF1DC;
+  --film:#1C1714;          /* yalnız video çerçevesi koyu */
+  --yan:288px;
+  --r:8px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Karla,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:17px;
+  line-height:1.7;
+  font-weight:400;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4,.serif{
+  font-family:"Source Serif 4","Iowan Old Style",Georgia,serif;
+  font-weight:600;
+  line-height:1.22;
+  letter-spacing:-.005em;
+  margin:0;
+}
+
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(180,69,31,.28)}
+a:hover{border-bottom-color:var(--accent)}
+
+button{font:inherit;color:inherit;cursor:pointer;font-variant-numeric:tabular-nums}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.atla{position:absolute;left:-9999px;top:0;z-index:99;background:var(--accent);color:#fff;padding:11px 18px;border:0;border-radius:var(--r)}
+.atla:focus{left:10px;top:10px}
+
+/* ------------------------------------------------------------------ yan menü */
+
+#yan{
+  position:fixed;inset:0 auto 0 0;width:var(--yan);
+  background:var(--rail);color:var(--ink);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;z-index:40;
+}
+
+.yan-ust{padding:30px 26px 20px}
+
+.marka{
+  font-family:"Source Serif 4",Georgia,serif;font-weight:600;
+  font-size:20px;line-height:1.22;color:var(--ink);letter-spacing:-.01em;
+}
+.marka span{display:block;font-weight:400;color:var(--ink-2)}
+.egitmen{margin-top:9px;font-size:14px;color:var(--ink-2)}
+
+.ara-sar{position:relative;margin-top:22px}
+#ara{
+  width:100%;padding:10px 12px 10px 36px;
+  background:var(--surface);color:var(--ink);
+  border:1px solid var(--line);border-radius:var(--r);
+  font-size:15px;font-family:inherit;
+}
+#ara::placeholder{color:var(--ink-2);opacity:.75}
+#ara:focus{border-color:var(--accent);outline:none}
+.ara-sar svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:14px;height:14px;fill:none;stroke:var(--ink-2);stroke-width:2}
+
+#menu{flex:1;overflow-y:auto;padding:4px 0 22px;scrollbar-width:thin;scrollbar-color:#DED3C4 transparent}
+#menu::-webkit-scrollbar{width:8px}
+#menu::-webkit-scrollbar-thumb{background:#DED3C4;border-radius:8px}
+
+.m-grup + .m-grup{border-top:1px solid var(--line)}
+
+.m-bas{
+  width:100%;background:none;border:0;text-align:left;
+  display:flex;align-items:baseline;gap:10px;flex-direction:row-reverse;
+  padding:15px 26px 12px;color:var(--ink-2);
+}
+.m-bas:hover{color:var(--ink)}
+.m-bas .no{font-size:13.5px;color:var(--ink-2);flex:0 0 auto}
+.m-bas .ad{flex:1;text-align:left;font-size:14.5px;font-weight:500;line-height:1.35;color:inherit}
+.m-bas .ok{transition:transform .18s;flex:0 0 auto;color:var(--ink-2);opacity:.7}
+.m-grup.acik .m-bas .ok{transform:rotate(90deg)}
+.m-grup.bos .m-bas{opacity:.62}
+
+.m-liste{display:none;padding:0 0 14px}
+.m-grup.acik .m-liste{display:block}
+
+.m-liste a{
+  display:flex;gap:10px;align-items:baseline;
+  padding:6px 26px 6px 23px;color:var(--ink);
+  font-size:15px;line-height:1.45;border:0;border-left:3px solid transparent;
+  text-decoration:none;
+}
+.m-liste a:hover{color:var(--accent)}
+.m-liste a.aktif{border-left-color:var(--accent);color:var(--accent);font-weight:500}
+.m-liste a .n{font-size:13.5px;color:var(--ink-2);flex:0 0 30px}
+.m-liste a.aktif .n{color:var(--accent)}
+.m-liste a .tik{flex:0 0 auto;color:var(--accent);opacity:0;font-size:13px}
+.m-liste a.bitti .tik{opacity:.85}
+.m-liste a.bitti .n{color:var(--accent);opacity:.8}
+.m-liste a.ekstra{color:var(--ink-2)}
+.m-liste a.ekstra:hover,.m-liste a.ekstra.aktif{color:var(--accent)}
+.m-liste .ayrac{height:1px;background:var(--line);margin:12px 26px}
+
+.yok-not{padding:6px 26px 4px;font-size:13.5px;color:var(--ink-2);line-height:1.5;opacity:.85}
+
+.yan-alt{padding:18px 26px 22px;border-top:1px solid var(--line)}
+.sayac{font-size:14px;color:var(--ink-2)}
+.sayac b{color:var(--ink);font-weight:700}
+.cubuk{height:4px;background:#E7DFD4;border-radius:4px;margin-top:10px;position:relative;overflow:hidden}
+.cubuk i{position:absolute;inset:0 auto 0 0;background:var(--accent);width:0;transition:width .3s;border-radius:4px}
+#sifirla{
+  margin-top:14px;background:none;border:1px solid var(--line);color:var(--ink-2);
+  font-size:13.5px;padding:5px 12px;border-radius:var(--r);
+}
+#sifirla:hover{color:var(--accent);border-color:var(--accent)}
+
+#mobil{display:none}
+
+/* ------------------------------------------------------------------ gövde */
+
+#govde{margin-left:var(--yan);min-height:100vh;display:flex;flex-direction:column}
+
+/* ------------------------------------------------------------------ video şeridi */
+
+#serit{
+  position:sticky;top:0;z-index:30;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  padding:18px 28px 0;
+}
+.serit-ic{max-width:820px;margin:0 auto}
+
+.oyn-sar{
+  width:min(100%,54vh,600px);margin:0 auto;
+  aspect-ratio:16/9;background:var(--film);border-radius:var(--r);
+  position:relative;overflow:hidden;
+}
+#serit.kapali .oyn-sar{display:none}
+.oyn-sar iframe,.oyn-sar>div:not(.oyn-bos){width:100%;height:100%;border:0;display:block}
+
+.oyn-bos{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:24px;color:#C7BCB2;font-size:15px;line-height:1.6;
+}
+.oyn-bos code{color:#EFE7DE;font-family:inherit;font-weight:700}
+
+.serit-alt{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 14px;
+  width:min(100%,54vh,600px);margin:0 auto}
+.durum{
+  font-size:14px;color:var(--ink-2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.durum b{color:var(--accent);font-weight:700}
+.serit-sag{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+#yt-ac{
+  font-size:13.5px;color:var(--accent);border:1px solid var(--accent-soft);
+  background:var(--accent-soft);padding:5px 13px;border-radius:var(--r);white-space:nowrap;
+}
+#yt-ac:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+#gizle{
+  background:none;border:1px solid var(--line);color:var(--ink-2);
+  font-size:13.5px;padding:5px 13px;border-radius:var(--r);flex:0 0 auto;
+}
+#gizle:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ------------------------------------------------------------------ içerik */
+
+#icerik{flex:1;padding:56px 28px 120px}
+.sayfa{max-width:720px;margin:0 auto}
+.sayfa[hidden]{display:none}
+
+.ust-satir{font-size:14px;color:var(--ink-2);letter-spacing:.02em;margin:0 0 14px}
+
+h1.baslik{font-size:36px;line-height:1.16;margin-bottom:18px}
+p.giris{font-size:19px;line-height:1.62;color:var(--ink-2);margin:0 0 34px;max-width:64ch}
+
+h2.bolum{
+  font-family:Karla,sans-serif;font-weight:700;font-size:14.5px;
+  letter-spacing:.04em;color:var(--ink-2);
+  margin:56px 0 24px;padding-top:20px;border-top:1px solid var(--line);
+}
+
+/* ------------------------------------------------------------------ dakika düğmesi */
+
+.t{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent-soft);color:var(--accent);
+  border:0;border-radius:999px;
+  padding:3px 12px 3px 10px;margin:0 2px;
+  font-family:inherit;font-weight:500;font-size:14px;line-height:1.5;
+  font-variant-numeric:tabular-nums;
+  vertical-align:baseline;transition:background .14s,color .14s;
+}
+.t svg{width:7px;height:8px;fill:currentColor;flex:0 0 auto}
+.t:hover,.t.calan{background:var(--accent);color:#fff}
+.t:active{background:#933617}
+
+.videoda{
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+  padding:16px 20px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r);
+  margin:0 0 12px;
+}
+.videoda .etiket{font-size:14px;font-weight:700;color:var(--ink-2)}
+.videoda .vmet{font-size:15.5px;line-height:1.9}
+.videoda .vad{font-size:14px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------------ anahtar noktalar */
+
+ol.anahtar{list-style:none;margin:0;padding:0;counter-reset:ap}
+ol.anahtar>li{
+  counter-increment:ap;position:relative;
+  padding:0 0 0 40px;margin:0 0 34px;
+}
+ol.anahtar>li:last-child{margin-bottom:0}
+ol.anahtar>li::before{
+  content:counter(ap);position:absolute;left:0;top:1px;
+  font-family:"Source Serif 4",Georgia,serif;font-weight:600;
+  font-size:19px;color:var(--accent);opacity:.7;
+}
+ol.anahtar .kural{margin:0 0 7px;font-weight:700;font-size:18px;line-height:1.5;max-width:60ch}
+ol.anahtar .acik{margin:0;color:var(--ink-2);font-size:16.5px;line-height:1.68;max-width:68ch}
+ol.anahtar .damga{margin-top:12px}
+
+/* ------------------------------------------------------------------ kutular */
+
+.kutu{padding:22px 26px;margin:34px 0;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.kutu h3{
+  font-family:Karla,sans-serif;font-size:14.5px;font-weight:700;
+  letter-spacing:.03em;margin:0 0 10px;
+}
+.kutu p{margin:0 0 12px;font-size:16.5px;line-height:1.66}
+.kutu p:last-child{margin-bottom:0}
+
+.kutu.hata{background:var(--warn-soft);border-color:rgba(142,44,34,.16);border-left:3px solid var(--warn)}
+.kutu.hata h3{color:var(--warn)}
+.kutu.dikkat{background:var(--note-soft);border-color:rgba(138,106,31,.2);border-left:3px solid var(--note)}
+.kutu.dikkat h3{color:var(--note)}
+.kutu .t,.gerekce .t,.md blockquote .t{background:var(--surface)}
+.kutu .t:hover,.gerekce .t:hover,.md blockquote .t:hover,
+.kutu .t.calan,.gerekce .t.calan{background:var(--accent);color:#fff}
+
+.izgara{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:28px 0}
+.izgara .k{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.izgara .k b{display:block;font-size:16px;margin-bottom:4px}
+.izgara .k span{font-size:15.5px;color:var(--ink-2);line-height:1.6}
+
+/* ------------------------------------------------------------------ kendini kontrol et */
+
+.kontrol{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:24px 26px;margin:34px 0}
+.kontrol h3{font-family:Karla,sans-serif;font-size:14.5px;font-weight:700;letter-spacing:.03em;color:var(--ink-2);margin:0 0 16px}
+.kontrol ol{margin:0;padding-left:22px}
+.kontrol li{margin-bottom:12px;font-size:16.5px;line-height:1.62}
+.kontrol li:last-child{margin-bottom:0}
+.kontrol li::marker{color:var(--ink-2)}
+.kontrol .yanlis{
+  margin:20px 0 0;padding-top:18px;border-top:1px solid var(--line);
+  font-size:15px;color:var(--ink-2);display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+}
+
+/* ------------------------------------------------------------------ tam metin */
+
+details.tam{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);margin:34px 0}
+details.tam>summary{
+  list-style:none;cursor:pointer;padding:17px 22px;
+  display:flex;align-items:center;gap:12px;
+  font-size:15.5px;font-weight:500;color:var(--ink-2);border-radius:var(--r);
+}
+details.tam>summary::-webkit-details-marker{display:none}
+details.tam>summary:hover{color:var(--accent)}
+details.tam>summary .arti{width:13px;height:13px;position:relative;flex:0 0 auto}
+details.tam>summary .arti::before,details.tam>summary .arti::after{content:"";position:absolute;background:currentColor}
+details.tam>summary .arti::before{inset:6px 0 6px 0;height:1px}
+details.tam>summary .arti::after{inset:0 6px 0 6px;width:1px;transition:opacity .15s}
+details.tam[open]>summary .arti::after{opacity:0}
+details.tam[open]>summary{border-bottom:1px solid var(--line);border-radius:var(--r) var(--r) 0 0}
+.tam-ic{padding:26px 30px 32px}
+
+/* ------------------------------------------------------------------ markdown gövde */
+
+.md p{margin:0 0 18px;max-width:70ch}
+.md p:last-child{margin-bottom:0}
+.md strong{font-weight:700}
+.md em{font-style:italic;color:var(--ink-2)}
+.md ul,.md ol{margin:0 0 18px;padding-left:24px;max-width:70ch}
+.md li{margin-bottom:10px}
+.md li::marker{color:var(--ink-2)}
+.md li>p{margin-bottom:10px}
+.md h3{font-size:22px;margin:32px 0 12px}
+.md h4{font-size:18px;margin:26px 0 10px}
+.md hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.md blockquote{
+  margin:24px 0;padding:20px 24px;border-radius:var(--r);
+  background:var(--note-soft);border:1px solid rgba(138,106,31,.2);
+  border-left:3px solid var(--note);
+}
+.md blockquote p{font-size:16px}
+.md blockquote strong:first-child{color:var(--note)}
+.md table{border-collapse:collapse;width:100%;font-size:15.5px;margin:0}
+.md .tablo-sar{overflow-x:auto;margin:26px 0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.md th,.md td{border-bottom:1px solid var(--line);padding:12px 16px;text-align:left;vertical-align:top;line-height:1.55}
+.md th{font-size:14px;font-weight:700;color:var(--ink-2);white-space:nowrap;background:#FCFAF7}
+.md tr:last-child td{border-bottom:0}
+.md code{font-family:inherit;font-weight:700;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:4px;font-size:.95em}
+
+/* ------------------------------------------------------------------ düğmeler / bitirdim */
+
+.bitir{margin:52px 0 0;padding-top:30px;border-top:1px solid var(--line);display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.bitirdim,.dgm,.basla{
+  background:var(--accent);color:#fff;border:1px solid var(--accent);
+  padding:11px 24px;border-radius:var(--r);font-size:16px;font-weight:500;
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+}
+.bitirdim:hover,.dgm:hover,.basla:hover{background:#9C3A19;border-color:#9C3A19;color:#fff}
+.bitirdim.tamam{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft)}
+.bitirdim.tamam:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.bitirdim .tik{display:none}
+.bitirdim.tamam .tik{display:inline}
+.sonraki{font-size:15.5px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------------ kapak */
+
+.kapak{padding-top:34px}
+.kapak .kicik{font-size:15px;color:var(--accent);margin-bottom:26px;letter-spacing:.02em}
+.kapak h1{font-size:58px;line-height:1.05;letter-spacing:-.02em;margin-bottom:26px}
+.kapak .alt{font-size:20px;line-height:1.6;color:var(--ink-2);max-width:52ch;margin:0 0 30px}
+.kapak .kunye{font-size:15.5px;color:var(--ink-2);margin:0 0 40px;display:flex;flex-wrap:wrap;gap:6px 16px}
+.kapak .kunye span{white-space:nowrap}
+.kapak .kunye b{font-weight:700;color:var(--ink)}
+.kapak .basla{padding:14px 30px;font-size:17px}
+.kapak-not{margin-top:44px;font-size:15.5px;color:var(--ink-2);max-width:62ch;line-height:1.65}
+
+/* ------------------------------------------------------------------ modül giriş */
+
+.kaz{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 26px}
+.kaz ul{margin:0;padding-left:22px;max-width:none}
+.kaz li{margin-bottom:12px;font-size:16.5px;line-height:1.6}
+.kaz li:last-child{margin-bottom:0}
+
+.kunye-sat{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0;
+  border:1px solid var(--line);border-radius:var(--r);background:var(--surface);margin:0 0 40px;overflow:hidden;
+}
+.kunye-sat div{padding:18px 22px;border-right:1px solid var(--line)}
+.kunye-sat div:last-child{border-right:0}
+.kunye-sat b{display:block;font-size:13.5px;color:var(--ink-2);font-weight:700;margin-bottom:5px;letter-spacing:.02em}
+.kunye-sat span{font-size:15.5px;line-height:1.55}
+
+ol.izle{list-style:none;counter-reset:iz;margin:0;padding:0}
+ol.izle li{
+  counter-increment:iz;position:relative;padding:0 0 0 40px;margin-bottom:26px;
+  font-size:16.5px;line-height:1.65;max-width:68ch;
+}
+ol.izle li:last-child{margin-bottom:0}
+ol.izle li::before{
+  content:counter(iz);position:absolute;left:0;top:1px;
+  font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:19px;
+  color:var(--accent);opacity:.7;
+}
+
+/* ------------------------------------------------------------------ test */
+
+.test-ust{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 24px;margin:0 0 44px}
+.test-ust p{margin:0;font-size:16px;color:var(--ink-2);line-height:1.65}
+
+.soru{padding:0 0 44px}
+.soru .sno{font-size:14px;color:var(--ink-2);margin:0 0 10px;letter-spacing:.02em}
+.soru .metin{font-size:18px;line-height:1.6;margin:0 0 20px;max-width:66ch}
+.siklar{display:flex;flex-direction:column;gap:2px}
+.sik{
+  display:flex;gap:14px;align-items:flex-start;text-align:left;
+  background:none;border:0;border-radius:var(--r);
+  padding:14px 18px;width:100%;
+  font-size:16.5px;line-height:1.6;
+  transition:background .13s,color .13s;
+  position:relative;
+}
+.sik::after{
+  content:"";position:absolute;left:18px;right:18px;bottom:0;height:1px;background:var(--line);
+}
+.sik:last-child::after{display:none}
+.sik:hover{background:#F6F1EA}
+.sik .h{font-weight:700;color:var(--ink-2);flex:0 0 auto;width:16px}
+.sik .isaret{margin-left:auto;flex:0 0 auto;font-weight:700;padding-left:14px}
+.sik.secili{background:var(--accent-soft)}
+.sik.secili .h{color:var(--accent)}
+.sik.secili::after{display:none}
+.sik[disabled]{cursor:default}
+.sik[disabled]:hover{background:none}
+.sik.dogru,.sik.dogru[disabled]:hover{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.sik.dogru .h,.sik.dogru .isaret{color:var(--accent)}
+.sik.dogru::after{display:none}
+.sik.yanlis,.sik.yanlis[disabled]:hover{background:var(--warn-soft);box-shadow:inset 3px 0 0 var(--warn)}
+.sik.yanlis .h,.sik.yanlis .isaret{color:var(--warn)}
+.sik.yanlis::after{display:none}
+
+.gerekce{
+  margin:18px 0 0;padding:20px 24px;background:var(--note-soft);
+  border:1px solid rgba(138,106,31,.2);border-left:3px solid var(--note);border-radius:var(--r);
+  font-size:16px;line-height:1.62;
+}
+.gerekce b{color:var(--note)}
+.gerekce .damga{margin-top:12px;display:block}
+.gerekce .vad{color:var(--ink-2);font-size:14.5px}
+
+.test-alt{margin-top:16px;padding-top:30px;border-top:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.test-alt .uyari{font-size:15.5px;color:var(--warn)}
+
+.puan{
+  border:1px solid var(--line);background:var(--surface);border-radius:var(--r);
+  padding:26px 30px;margin:0 0 44px;display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;
+}
+.puan .buyuk{
+  font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:46px;
+  color:var(--accent);line-height:1;letter-spacing:-.02em;
+}
+.puan .yorum{font-size:16.5px;color:var(--ink-2);line-height:1.6;flex:1 1 260px}
+
+/* ------------------------------------------------------------------ arama */
+
+.ara-sonuc{padding:4px 0 16px}
+.ara-sonuc a{display:block;padding:11px 26px;color:var(--ink);border:0;border-left:3px solid transparent;font-size:15px;line-height:1.5}
+.ara-sonuc a:hover{border-left-color:var(--accent);background:#EFE7DC}
+.ara-sonuc a b{display:block;font-weight:700;font-size:15px;margin-bottom:2px}
+.ara-sonuc a span{color:var(--ink-2);font-size:14px}
+.ara-sonuc a mark{background:var(--accent-soft);color:var(--accent);padding:0 2px;border-radius:3px}
+.ara-bos{padding:14px 26px;font-size:14.5px;color:var(--ink-2)}
+.ara-bas{padding:12px 26px 8px;font-size:13.5px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------------ boş modül */
+
+.bos-sayfa{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:34px 32px}
+.bos-sayfa h2{font-size:24px;margin-bottom:12px}
+.bos-sayfa p{margin:0;color:var(--ink-2);font-size:16.5px;max-width:56ch;line-height:1.65}
+
+/* ------------------------------------------------------------------ mobil */
+
+@media (max-width:900px){
+  :root{--yan:0px}
+  body{font-size:16.5px}
+  #yan{position:fixed;inset:0 0 auto 0;width:100%;height:auto;max-height:100vh;border-right:0;border-bottom:1px solid var(--line)}
+  #yan .yan-ust{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 18px}
+  #yan .marka{font-size:17px;flex:1}
+  #yan .marka span{display:inline}
+  #yan .marka span::before{content:"\2002"}
+  #yan .egitmen{display:none}
+  #yan .ara-sar{margin-top:0;display:none;width:100%}
+  #yan.acik .ara-sar{display:block}
+  #mobil{
+    display:inline-flex;align-items:center;gap:9px;background:none;
+    border:1px solid var(--line);color:var(--ink-2);
+    padding:8px 14px;border-radius:var(--r);font-size:14.5px;flex:0 0 auto;
+  }
+  #mobil:hover{color:var(--accent);border-color:var(--accent)}
+  #menu{display:none;max-height:58vh;border-top:1px solid var(--line)}
+  #yan.acik #menu{display:block}
+  .yan-alt{display:none}
+  #yan.acik .yan-alt{display:block}
+  #govde{margin-left:0;padding-top:63px}
+  #serit{top:63px;padding:14px 18px 0}
+  .oyn-sar{width:min(100%,40vh,520px)}
+  .serit-alt{flex-wrap:wrap;gap:10px}
+  .durum{white-space:normal;flex:1 1 100%}
+  #icerik{padding:34px 20px 90px}
+  h1.baslik{font-size:29px}
+  .kapak h1{font-size:38px;max-width:none}
+  .kapak .alt{font-size:18px}
+  p.giris{font-size:17.5px}
+  .kunye-sat div{border-right:0;border-bottom:1px solid var(--line)}
+  .kunye-sat div:last-child{border-bottom:0}
+  .tam-ic{padding:20px 20px 24px}
+  .kutu,.kontrol,.test-ust,.puan{padding-left:20px;padding-right:20px}
+  .sik{padding:14px 14px}
+  .sik::after{left:14px;right:14px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+
+@media print{
+  #yan,#serit,.bitir,#mobil{display:none}
+  #govde{margin-left:0}
+  .sayfa[hidden]{display:block}
+  details.tam{border:0}
+  .tam-ic{padding:0}
+}
+
+</style>
+</head>
+<body data-toplam-ders="48">
+<a class="atla" href="#icerik">İçeriğe geç</a>
+
+<aside id="yan">
+  <div class="yan-ust">
+    <div class="marka">Etsy Satıcı<span>Eğitim Programı</span></div>
+    <button id="mobil" type="button" aria-expanded="false" aria-controls="menu">
+      <svg width="14" height="12" viewBox="0 0 14 12" aria-hidden="true"><path d="M0 1h14M0 6h14M0 11h14" stroke="currentColor" stroke-width="1.6"/></svg>
+      İçindekiler
+    </button>
+    <div class="egitmen">Emin Demir</div>
+    <div class="ara-sar">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4"/></svg>
+      <input id="ara" type="search" placeholder="Derslerde ara…" aria-label="Kurs içinde ara" autocomplete="off">
+    </div>
+  </div>
+  <nav id="menu" aria-label="Kurs içeriği">
+<div class="m-grup acik"><div class="m-liste" style="display:block;padding-top:8px"><a href="#/kapak"><span class="n">—</span><span>Kapak</span></a></div></div>
+<div class="m-grup acik">
+<button class="m-bas" type="button" aria-expanded="true"><svg class="ok" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M2 0l5 4.5L2 9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="ad">Etsy&#x27;nin Mantığı</span><span class="no">Modül 1</span></button>
+<div class="m-liste">
+<a href="#/modul-1" class="ekstra"><span class="n">·</span><span>Modül girişi</span></a>
+<a href="#/ders-1-1" data-ders="1.1"><span class="n">1.1</span><span>Etsy bir AVM&#x27;dir, sen kiracısın</span><span class="tik">✓</span></a>
+<a href="#/ders-1-2" data-ders="1.2"><span class="n">1.2</span><span>Ne satılır, ne satılmaz</span><span class="tik">✓</span></a>
+<a href="#/ders-1-3" data-ders="1.3"><span class="n">1.3</span><span>Önce müşteri ol: uygulama, arama ve filtreler</span><span class="tik">✓</span></a>
+<a href="#/ders-1-4" data-ders="1.4"><span class="n">1.4</span><span>Kime satıyorsun: Amerika pazarı ve kadın alıcı</span><span class="tik">✓</span></a>
+<a href="#/ders-1-5" data-ders="1.5"><span class="n">1.5</span><span>İyi ve kötü listing: bir satın alma yolculuğu</span><span class="tik">✓</span></a>
+<a href="#/ders-1-6" data-ders="1.6"><span class="n">1.6</span><span>İş modeli: production partner ve siparişin yolculuğu</span><span class="tik">✓</span></a>
+<a href="#/ders-1-7" data-ders="1.7"><span class="n">1.7</span><span>Ölçek, tempo ve &quot;geç mi kaldık?&quot; sorusu</span><span class="tik">✓</span></a>
+<div class="ayrac"></div>
+<a href="#/test-1" class="ekstra"><span class="n">·</span><span>Modül 1 testi</span></a>
+<p class="yok-not">Vakalar, ödevler, özet kartı ve tekrar listesi sonraki turda eklenecek.</p>
+</div></div>
+<div class="m-grup bos">
+<button class="m-bas" type="button" aria-expanded="false"><svg class="ok" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M2 0l5 4.5L2 9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="ad">Mağaza Kurulumu</span><span class="no">Modül 2</span></button>
+<div class="m-liste">
+<a href="#/bos-m2" class="ekstra"><span class="n">·</span><span>Henüz eklenmedi</span></a>
+</div></div>
+<div class="m-grup bos">
+<button class="m-bas" type="button" aria-expanded="false"><svg class="ok" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M2 0l5 4.5L2 9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="ad">İlan Üretimi</span><span class="no">Modül 3</span></button>
+<div class="m-liste">
+<a href="#/bos-m3" class="ekstra"><span class="n">·</span><span>Henüz eklenmedi</span></a>
+</div></div>
+<div class="m-grup bos">
+<button class="m-bas" type="button" aria-expanded="false"><svg class="ok" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M2 0l5 4.5L2 9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="ad">Panel Yönetimi ve Sipariş Akışı</span><span class="no">Modül 4</span></button>
+<div class="m-liste">
+<a href="#/bos-m4" class="ekstra"><span class="n">·</span><span>Henüz eklenmedi</span></a>
+</div></div>
+<div class="m-grup bos">
+<button class="m-bas" type="button" aria-expanded="false"><svg class="ok" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M2 0l5 4.5L2 9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="ad">Müşteri İlişkileri ve Marka Güvenliği</span><span class="no">Modül 5</span></button>
+<div class="m-liste">
+<a href="#/bos-m5" class="ekstra"><span class="n">·</span><span>Henüz eklenmedi</span></a>
+</div></div>
+<div class="m-grup bos"><button class="m-bas" type="button" aria-expanded="false"><svg class="ok" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M2 0l5 4.5L2 9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="ad">Ekler A–J</span><span class="no">Ekler</span></button><div class="m-liste"><a href="#/bos-ekler" class="ekstra"><span class="n">·</span><span>Henüz eklenmedi</span></a></div></div>
+</nav>
+  <div id="ara-sonuc" class="ara-sonuc" hidden></div>
+  <div class="yan-alt">
+    <div class="sayac"><span><b id="sayi">0</b> / 48 ders bitti</span></div>
+    <div class="cubuk"><i id="cubuk-i"></i></div>
+    <button id="sifirla" type="button">İlerlemeyi sıfırla</button>
+  </div>
+</aside>
+
+<div id="govde">
+  <header id="serit">
+    <div class="serit-ic">
+      <div class="oyn-sar" id="oyn-kutu"></div>
+      <div class="serit-alt">
+        <div class="durum" id="durum" role="status">Bir dakika düğmesine bas — video o saniyeden başlar</div>
+        <div class="serit-sag">
+          <a id="yt-ac" href="https://youtube.com" target="_blank" rel="noopener" hidden>YouTube'da aç <span aria-hidden="true">&#8599;</span></a>
+          <button id="gizle" type="button">Videoyu gizle</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="icerik">
+<article class="sayfa kapak" id="kapak" data-ad="Kapak" data-ust="Kurs kapağı" data-video="1">
+<p class="kicik">Etsy satıcı eğitimi · beş video, beş modül</p>
+<h1>Etsy Satıcı<br>Eğitim Programı</h1>
+<p class="alt">Emin Demir'in beş eğitim kaydından derlendi. Etsy bilgisi sıfır kabul edilir: her kavram ilk geçtiği yerde açıklanır.</p>
+<p class="kunye"><span><b>5</b> video · 7 sa 2 dk</span><span><b>5</b> modül</span><span><b>48</b> ders</span><span><b>10</b> ek</span></p>
+<a class="basla" href="#/modul-1">Modül 1'e başla <span aria-hidden="true">&#8594;</span></a>
+<div class="kutu dikkat"><h3>Önce şunu bil</h3><p>Bu kurs videonun yerine geçmez, <b>videoyla birlikte akar.</b> Videoyu izlersin, sonra ilgili derse dönersin. Sayfadaki yeşil dakika düğmelerine bastığında yukarıdaki oynatıcı o saniyeden başlar — anlamadığın yeri okumak yerine gidip bir-iki dakika izle.</p><p>Hedef tempo <b>dört-beş gün:</b> her güne bir video ve bir modül; beşinci gün final ve yol haritası. Sıra atlanmaz.</p></div>
+<p class="kapak-not">İlerlemen bu tarayıcıya kaydedilir: bitirdiğin dersler ve test sonuçların yan menüde görünür. Sıfırlamak istersen yan menünün altındaki düğmeyi kullan.</p>
+</article>
+
+<article class="sayfa" id="modul-1" data-ad="Modül 1 — Etsy&#x27;nin Mantığı" data-ust="Modül girişi" data-video="1" hidden>
+<p class="ust-satir">Modül 1</p>
+<h1 class="baslik">Etsy&#x27;nin Mantığı</h1>
+<div class="kunye-sat">
+<div><b>Tahmini süre</b><span>~3 saat (video 78 dk + zorunlu okuma ~27 dk + test + kurs içi ödevler)</span></div>
+<div><b>Ön koşul</b><span>Yok. Program buradan başlar. Etsy'ye dair hiçbir şey bilmediğini varsayar.</span></div>
+<div><b>İzlenecek kayıt</b><span>Video 1 (tamamı).</span></div>
+</div>
+<h2 class="bolum">Bu modülü bitirince şunları yapabileceksin</h2>
+<div class="kaz md"><ul>
+<li>Etsy'nin satıcıya bakışını AVM benzetmesiyle, mağaza kapatma sebeplerinden en az beşini sayarak anlatabileceksin.</li>
+<li>Önüne konan bir ürünün Etsy'de satılıp satılamayacağına gerekçesiyle karar verebileceksin (el emeği/kişiselleştirme şartı, üç ürün grubu, trademark).</li>
+<li>Etsy uygulamasında müşteri gibi arama yapıp filtreleri, reklam-organik ayrımını ve bir listing sayfasının bütün parçalarını gösterebileceksin.</li>
+<li>Amerikan alıcısının profilini rakamlarıyla anlatabilecek ve bunun ürün-görsel-dil seçimini nasıl belirlediğini açıklayabileceksin.</li>
+<li>İş modelindeki görev sınırını çizebileceksin: senin işin ne, production partner'ın işi ne, müşteri kiminle muhatap.</li>
+<li>Bir siparişin verildiği andan teslim edildiği ana kadarki yolculuğunu kendi cümlelerinle anlatabileceksin.</li>
+</ul></div>
+<h2 class="bolum">Bu modülü nasıl çalışmalısın?</h2>
+<div class="md"><p>Bu yöntemi, ilk üç videoyu çalışan ilk öğrenci gerçekten kullandı. İşe yaradı. Aynen aktarıyoruz:</p>
+<ul>
+<li>Videoyu <strong>1,5 hızda</strong> izle. Emin rahat ve tane tane anlatır. 1,5 hızda hiçbir şey kaçmaz, süre kısalır.</li>
+<li><strong>Her 20 dakikada bir durdur.</strong> Az önce gördüğünü kendine bir cümleyle anlat. Anlatamıyorsan geri sar. Bu küçük duruş, izlemeyi seyretmekten çıkarır.</li>
+<li>Not tut ama <strong>cümle yazma — iki kelime yaz:</strong> "%80 telefon", "üç grup", "production partner" gibi. Ayrıntı zaten bu programda duruyor. Notun tek işi hatırlatmak. Nota ayrıntı taşımaya başlarsan hem yavaşlarsın hem o notu bir daha okumazsın.</li>
+<li>Modül bitince ders sonlarındaki <strong>"Kendini kontrol et"</strong> sorularını yüksek sesle cevapla. Eğitmenin varsa sözlü kontrolü onunla yap. Sonra kendi notunu baştan oku ve eksik kalan <strong>en fazla bir-iki satırı</strong> ekle. Notu şişirme.</li>
+<li>Bir şeyi de dürüstçe söyleyelim: bu videolar ders kaydıdır ve <strong>yer yer sıkıcıdır.</strong> Saatlerce anlatım izlemek herkese zor gelir. Sıkılırsan sorun sende değil. İlacı yukarıdaki yöntemdir: hız, mola, kendi cümlenle anlatmak — bir de araya spor ya da yürüyüş koymak. Ama sıkıldın diye atlayarak izleme. Atladığın beş dakika çoğu zaman en pahalı bilgidir.</li>
+</ul></div>
+<h2 class="bolum">Önce izle — sonra buraya dön</h2>
+<div class="md"><p>Bu modülün videosu: <strong>Video 1 (tamamı).</strong> İzlerken şu beş şeye dikkat et:</p></div>
+<ol class="izle">
+<li><strong>AVM benzetmesi.</strong> Emin bütün kursu bu benzetmenin üstüne kuruyor. Mağaza kapatma sebeplerini sayarken iki kelimelik not al. <em>(Video 1, <button class="t" type="button" data-v="1" data-s="94" title="Video 1, 1:34–7:17 — videoyu buradan oynat" aria-label="Video 1, 1:34–7:17 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>1:34–7:17</button>)</em></li>
+<li><strong>Boş Gildan neden yasak?</strong> Sebebe dikkat: trademark değil, el emeği/kişiselleştirme şartı. (Bu videoyu izleyen gerçek öğrenci tam burada yanılmıştı.) <em>(Video 1, <button class="t" type="button" data-v="1" data-s="286" title="Video 1, 4:46–5:43 — videoyu buradan oynat" aria-label="Video 1, 4:46–5:43 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>4:46–5:43</button>)</em></li>
+<li><strong>Müşteri turu.</strong> Filtreler ve "Ad by seller" işareti — hoca ekranda canlı gösteriyor. Sen de telefonda uygulamayı açıp aynı yerlere bak. <em>(Video 1, <button class="t" type="button" data-v="1" data-s="461" title="Video 1, 7:41–18:21 — videoyu buradan oynat" aria-label="Video 1, 7:41–18:21 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>7:41–18:21</button>)</em></li>
+<li><strong>Üç sayı:</strong> %80 telefon, %95 kadın, 20-25 dolar. Kursun en çok geri dönen sayıları bunlar. <em>(Video 1, <button class="t" type="button" data-v="1" data-s="461" title="Video 1, 7:41 — videoyu buradan oynat" aria-label="Video 1, 7:41 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>7:41</button> / <button class="t" type="button" data-v="1" data-s="1167" title="Video 1, 19:27 — videoyu buradan oynat" aria-label="Video 1, 19:27 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>19:27</button> / <button class="t" type="button" data-v="1" data-s="1241" title="Video 1, 20:41 — videoyu buradan oynat" aria-label="Video 1, 20:41 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>20:41</button>)</em></li>
+<li><strong>Tesis turu.</strong> Production partner, DTF ve tracking code kelimelerini yakala — sipariş zincirini bu terimlerle anlatabilir olacaksın. <em>(Video 1, <button class="t" type="button" data-v="1" data-s="1803" title="Video 1, 30:03–34:59 — videoyu buradan oynat" aria-label="Video 1, 30:03–34:59 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>30:03–34:59</button>)</em></li>
+</ol>
+<h2 class="bolum">Okuma planı</h2>
+<div class="md"><p>Bu modülde başvuru dersi yok. Yedi ders de çekirdektir. Zorunlu okuma (dersler + Sınıfta sorulanlar + vakalar + özet kartı): <strong>~25 dakika.</strong> Ödevler ve test bunun dışında — onlar okuma değil, iş.</p></div>
+<div class="bitir"><a class="basla" href="#/ders-1-1">Ders 1.1 ile başla <span aria-hidden="true">&#8594;</span></a></div>
+</article>
+
+<article class="sayfa" id="ders-1-1" data-ad="Ders 1.1 — Etsy bir AVM&#x27;dir, sen kiracısın" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.1</p>
+<h1 class="baslik">Etsy bir AVM&#x27;dir, sen kiracısın</h1>
+<p class="giris">Kursun geri kalanındaki her kural tek bir mantıktan türer; o mantığı kavrarsan kuralları ezberlemen gerekmez.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="94" title="Video 1, 1:34–7:17 — videoyu buradan oynat" aria-label="Video 1, 1:34–7:17 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>1:34–7:17</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">Kendini bir AVM sahibi olarak düşün.</p>
+<p class="acik">AVM'nin içinde bir sürü mağaza var; sahibi, mağazaların çok satmasını ister, çünkü her satıştan pay alır — ama asıl koruduğu şey AVM'nin müşterisidir. Tek bir kötü dükkan müşteriyi kaçırır.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="94" title="Video 1, 1:34–7:17 — videoyu buradan oynat" aria-label="Video 1, 1:34–7:17 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>1:34–7:17</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Sen orada kiracısın, ev sahibi değilsin.</p>
+<p class="acik">Etsy sana dükkan kiralar, kurallarını yazılı olarak önüne koyar ve "müşterimi kaçıran satıcıyı kapatırım" mantığıyla bakar. "Etsy kapatır" cümlesi bir korkutmaca değil, işin gerçeğidir.</p>
+</li>
+<li>
+<p class="kural">Müşteri kaçıran davranışlar bellidir.</p>
+<p class="acik">Siparişleri zamanında kargolamamak, mesajlara düzenli cevap vermemek, kalitesiz ürün gönderip bir yıldızlı yorumlar toplamak ve marka haklarını (trademark) çiğnemek. İlerleyen modüllerde buna iki madde daha eklenecek: tutarsız kimlik-banka bilgisi ve kargo etiketi alınıp bekletilen siparişler.</p>
+</li>
+<li>
+<p class="kural">Etsy'nin yazılı kuralları policies (politikalar) adıyla yayımlanır.</p>
+<p class="acik">Emin'in tavsiyesi net: hepsini bir oturuşta değil, peyder pey oku; İngilizcesini anlamadığın yerde Türkçeye çevir.</p>
+</li>
+<li>
+<p class="kural">Politikaların özeti Emin'in ağzından tek cümle.</p>
+<p class="acik">"Mağazan güzel bir mağaza olacak, müşterilerimi memnun edecek, benim istediğim standartları karşılayacak, bir de hak hukuk konularına dikkat edecek."</p>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>Kuralları "nasıl olsa alışırım" diye hiç okumamak. Sonuç: satıcı ilk ihlalini bilmeden yapar ve Modül 3'te göreceğin gibi Etsy, bilinen konularda "bilmiyordum" savunmasını kabul etmez. <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="94" title="Video 1, 1:34–7:17 — videoyu buradan oynat" aria-label="Video 1, 1:34–7:17 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>1:34–7:17</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>AVM benzetmesinde Etsy kim, sen kimsin, müşteri kimin müşterisi?</li>
+<li>Müşteri kaçıran dört davranışı say. Bu listeye sonraki modüllerde eklenecek iki maddeyi tahmin edebilir misin?</li>
+<li>Etsy'nin yazılı kurallarının adı ne ve Emin bunları nasıl okumanı istiyor?</li>
+</ol>
+<hr />
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="94" title="Video 1, 1:34–7:17 — videoyu buradan oynat" aria-label="Video 1, 1:34–7:17 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>1:34–7:17</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Çünkü kursun geri kalanındaki her kural (kargola, cevap ver, marka ismi kullanma, bilgilerin tutarlı olsun) tek bir mantıktan türer. O mantığı kavrarsan kuralları ezberlemen gerekmez. Kendin türetirsin.</p>
+<p><strong>Mantık.</strong> Etsy, internet üzerinde bir pazar yeridir: kendi web siten değil, içinde milyonlarca satıcının dükkan açtığı dev bir satış sitesi. Emin'in bütün kursu üzerine kurduğu benzetme şu: <strong>kendini bir AVM sahibi olarak düşün.</strong> AVM'nin içinde bir sürü mağaza var; sahibi, mağazaların çok satmasını ister, çünkü her satıştan pay alır — ama asıl koruduğu şey AVM'nin müşterisidir. Tek bir kötü dükkan müşteriyi kaçırır. Etsy de aynen böyledir: sana dükkan kiralar, kurallarını yazılı olarak önüne koyar ve "müşterimi kaçıran satıcıyı kapatırım" mantığıyla bakar. Sen orada <strong>kiracısın, ev sahibi değilsin</strong>: "Etsy kapatır" cümlesini bu programda çok duyacaksın ve bu bir korkutmaca değil, işin gerçeğidir.</p>
+<p>Müşteri kaçıran davranışlar bellidir ve hepsi bu kursta kendi dersini bulacak: siparişleri zamanında kargolamamak, mesajlara düzenli cevap vermemek, kalitesiz ürün gönderip bir yıldızlı yorumlar toplamak ve marka haklarını (trademark) çiğnemek. İlerleyen modüllerde buna iki madde daha ekleyeceğiz: tutarsız kimlik-banka bilgisi (Modül 2) ve kargo etiketi alınıp bekletilen siparişler (Modül 4).</p>
+<p><strong>Nasıl yapılır?</strong> Bu dersin tek görevi okumaktır: Etsy'nin yazılı kuralları <strong>policies</strong> (politikalar) adıyla yayımlanır. Emin bu metinleri gruba atacağını söylüyor ve tavsiyesi net: hepsini bir oturuşta değil, <strong>peyder pey</strong> oku; İngilizcesini anlamadığın yerde Türkçeye çevir. Politikaların özeti Emin'in ağzından şöyle: "Mağazan güzel bir mağaza olacak, müşterilerimi memnun edecek, benim istediğim standartları karşılayacak, bir de hak hukuk konularına dikkat edecek."</p>
+<p><strong>Emin'in örneği.</strong> Hak hukuk ne demek, AVM'den anlatıyor: AVM'deki hiçbir mağazada orijinal olmayan ürün satılamaz. Adidas'a, Nike'a, Apple mağazasına girdiğinde orijinal, kutulu, tertemiz ürünler görürsün. Etsy de kendi çarşısında aynı düzeni ister — ama bir farkla ki o fark bir sonraki dersin konusu.</p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.1" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/ders-1-2">Ders 1.2 — Ne satılır, ne satılmaz</a></span></div>
+</article>
+
+<article class="sayfa" id="ders-1-2" data-ad="Ders 1.2 — Ne satılır, ne satılmaz" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.2</p>
+<h1 class="baslik">Ne satılır, ne satılmaz</h1>
+<p class="giris">Etsy'yi Amazon'dan ayıran çizgi burasıdır; bu çizgiyi bilmeyen satıcı, daha ilk ilanında mağazasını riske atar.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="190" title="Video 1, 3:10–13:43 — videoyu buradan oynat" aria-label="Video 1, 3:10–13:43 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>3:10–13:43</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">Etsy'de sattığın ürün senin el emeğinden veya kişiselleştirmenden geçmiş olmalıdır.</p>
+<p class="acik">Gildan marka boş bir tişörtü olduğu gibi satamazsın — üzerine bir tasarım basarsan satarsın. Boş bir telefon kılıfı satılmaz; müşterinin köpeğinin fotoğrafını kılıfa basıyorsan satılır.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="286" title="Video 1, 4:46–5:43 — videoyu buradan oynat" aria-label="Video 1, 4:46–5:43 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>4:46–5:43</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Physical item (fiziksel ürün) — kursun konusu bu gruptur.</p>
+<p class="acik">Kargoyla giden, el emeği veya kişiselleştirme içeren her şey: tişört, bardak, kolye, elle yapılmış resim, üzerine isim yazılan her şey.</p>
+</li>
+<li>
+<p class="kural">Digital download (dijital ürün) — dosya olarak satılan tasarımlar.</p>
+<p class="acik">Emin'in örneği düğün davetiyesi: müşteri satın alınca kendisine bir link gelir, şablona kendi ismini ve tarihini yazar, ister evinde ister matbaada bastırır.</p>
+</li>
+<li>
+<p class="kural">Supply (ara malzeme) — el işçiliği şartının tek istisnası budur.</p>
+<p class="acik">El yapımı ürün üretiminde kullanılan malzemeler: boncuk, parça, yarı mamul. Supply satmak için üretici ya da tedarikçi olduğunu beyan etmen gerekir.</p>
+</li>
+<li>
+<p class="kural">Kesin yasak: tescilli isim (trademark) kullanmak.</p>
+<p class="acik">Tişörte "Adidas" yazamazsın, kılıfa "Apple" yazamazsın, "Harry Potter" tasarımı satamazsın. Emin'in ekranda gösterdiği "Hogwarts" ilanı 9 satış almıştı: "Bu kişi bilmiyor. Bilmediği için yapıyor." Etsy bilmemeyi mazeret saymaz.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="412" title="Video 1, 6:52–7:17 — videoyu buradan oynat" aria-label="Video 1, 6:52–7:17 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>6:52–7:17</button> <span class="vad">Video 1</span></div>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>"Orijinalini satıyorum, faturam da var" diye markalı ürün listelemek — Amazon mantığını Etsy'ye taşımak. Sonuç: ilan kapanır; ısrarda mağaza gider. İkinci hata: boş (baskısız) ürünü "nasılsa tişört satıyorum" diye listelemek. El emeği şartına takılır. <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="190" title="Video 1, 3:10–13:43 — videoyu buradan oynat" aria-label="Video 1, 3:10–13:43 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>3:10–13:43</button>.)</em></p></div>
+<div class="kutu dikkat"><h3>Gerçek bir öğrenciden</h3><p>Sözlü kontrolde bir öğrenci, boş Gildan tişörtün neden satılamadığını "çünkü Gildan tescilli bir marka" diye açıkladı. Kulağa mantıklı geliyor ama sebep o değil: boş tişört, <strong>el emeği/kişiselleştirme şartına</strong> takıldığı için satılamaz — üzerine tasarım basıldığı an aynı Gildan tişört satılır hale gelir. Trademark ayrı bir yasaktır ve tişörtün <em>üzerine</em> tescilli bir isim basarsan devreye girer. İki kuralı birbirinin yerine koyma. <em>(Videodaki yeri: Video 1, <button class="t" type="button" data-v="1" data-s="286" title="Video 1, 4:46–5:43 — videoyu buradan oynat" aria-label="Video 1, 4:46–5:43 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>4:46–5:43</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>Boş Gildan tişört, üzerine köpek fotoğrafı basılmış kılıf, "Hogwarts" tişörtü, düzenlenebilir davetiye şablonu, Kapalıçarşı boncuğu — beşi için ayrı ayrı: satılır mı, hangi grupta, neden?</li>
+<li>Amazon ile Etsy'nin markalı ürün konusundaki farkını bir cümleyle söyle.</li>
+<li>Supply satmanın ön şartı ne?</li>
+<li>Bir arkadaşın "boş Gildan satılmaz, çünkü Gildan tescilli" dedi. Nerede haklı, nerede haksız?</li>
+</ol>
+<hr />
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="190" title="Video 1, 3:10–13:43 — videoyu buradan oynat" aria-label="Video 1, 3:10–13:43 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>3:10–13:43</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Çünkü Etsy'yi Amazon'dan ayıran çizgi burasıdır ve bu çizgiyi bilmeyen satıcı, daha ilk ilanında mağazasını riske atar.</p>
+<p><strong>Mantık.</strong> Amazon'da tanınmış bir markanın orijinal ürününü satabilirsin: Emin'in örneğiyle, en bilindik makyaj malzemesini toptancıdan alırsın, Amazon senden faturasını ister, gönderirsin, listelenirsin. <strong>Etsy böyle bir şey istemez.</strong> Etsy'de sattığın ürün <strong>senin el emeğinden veya kişiselleştirmenden</strong> geçmiş olmalıdır. Gildan marka boş bir tişörtü olduğu gibi satamazsın — üzerine bir tasarım basarsan satarsın. Boş bir telefon kılıfı satılmaz. Müşterinin köpeğinin fotoğrafını kılıfa basıyorsan satılır: müşteri fotoğrafı gönderir, sen kılıfa bastırır gönderirsin.</p>
+<p>Satılabilenler üç gruptur:</p>
+<p><strong>Physical item</strong> (fiziksel ürün): kargoyla giden, el emeği veya kişiselleştirme içeren her şey — tişört, bardak, kolye, elle yapılmış resim, üzerine isim yazılan her şey. Kursun konusu bu gruptur.</p>
+<p><strong>Digital download</strong> (dijital ürün): dosya olarak satılan tasarımlar. Emin'in örneği düğün davetiyesi: tasarımcı, düzenlenebilir bir davetiye şablonu hazırlayıp koyar; müşteri satın alınca kendisine bir link gelir (çoğunlukla Canva ya da Google Drive), müşteri şablona kendi ismini ve tarihini yazar, ister evinde ister matbaada bastırır. Türkiye'deki "davetçiye gidip taslak seçme" işinin online hali.</p>
+<p><strong>Supply</strong> (ara malzeme): el yapımı ürün üretiminde kullanılan malzemeler — boncuk, parça, yarı mamul. Emin'in örneği, Kapalıçarşı'dan kargolayan bir tedarikçi: sattığı boncuklar kişiselleştirilmiş değildir ama alıcılar onlardan küpe, yüzük, kolye yapar. Supply satmak için <strong>üretici ya da tedarikçi olduğunu beyan etmen</strong> gerekir. El işçiliği şartının tek istisnası budur.</p>
+<p>Ve kesin yasak: <strong>tescilli isim</strong> (trademark) kullanmak. Tişörte "Adidas" yazamazsın, kılıfa "Apple" yazamazsın, "Harry Potter" tasarımı satamazsın. Bu konunun cezaları ve yasak listesi Modül 3'te, kontrol yöntemi Modül 5'te ayrıntılı işlenecek. Şimdilik çizgiyi bil.</p>
+<p><strong>Emin'in örneği.</strong> Videoda canlı gösteriyor: yeni bir mağaza "Hogwarts" yazan bir ilan açmış, tasarımı 1 dolardan satıyor ve 9 satış almış. Emin'in yorumu anında geliyor: "Bu listing yakın bir süre sonra kapanacak — hatta mağaza da kapanabilir. Hogwarts trademark'lı bir kelime. Bu kişi bilmiyor. Bilmediği için yapıyor." Ders: Etsy bilmemeyi mazeret saymaz.</p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.2" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/ders-1-3">Ders 1.3 — Önce müşteri ol: uygulama, arama ve filtreler</a></span></div>
+</article>
+
+<article class="sayfa" id="ders-1-3" data-ad="Ders 1.3 — Önce müşteri ol: uygulama, arama ve filtreler" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.3</p>
+<h1 class="baslik">Önce müşteri ol: uygulama, arama ve filtreler</h1>
+<p class="giris">Müşterilerin yaklaşık yüzde 80'i Etsy'yi telefondan kullanıyor — ve müşterinin gördüğünü bilmeyen satıcı, ilan hazırlayamaz.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="461" title="Video 1, 7:41–18:21 — videoyu buradan oynat" aria-label="Video 1, 7:41–18:21 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>7:41–18:21</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">Telefonuna Etsy uygulamasını indir ve her gün gez.</p>
+<p class="acik">Müşteri gibi gezmeden fotoğrafların, başlığın, seçeneklerin müşteriye nasıl göründüğünü anlayamazsın. Bu aynı zamanda Modül 2'de göreceğin "Etsy seni tanısın" hazırlığının ilk adımıdır.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="461" title="Video 1, 7:41–18:21 — videoyu buradan oynat" aria-label="Video 1, 7:41–18:21 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>7:41–18:21</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Karşına çıkan her fotoğraf bir listing'tir, yani tek bir ürün ilanı.</p>
+<p class="acik">Bazı görsellerin üzerine gelince video oynar. Videolu ilanların köşesinde oynatma işareti görürsün.</p>
+</li>
+<li>
+<p class="kural">Filtreleri tek tek dene ve her birinde kendine sor: "Ben müşteri olsam bunu işaretler miydim?"</p>
+<p class="acik">Filtreler: ships from (nereden kargolanıyor), free shipping (ücretsiz kargo), personalized/customizable (kişiselleştirilebilir), fiyat aralığı, physical item / digital download ayrımı ve Star Seller. Müşterinin önem verdiği filtreler, senin ilanında bulunması gereken özelliklerdir.</p>
+</li>
+<li>
+<p class="kural">En üstte "Ad by seller" yazanlar reklamla gelir.</p>
+<p class="acik">Altında mağaza adı yazanlar organic gelir — Google'daki gibi: önce reklamlar, sonra doğal sıralama.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1082" title="Video 1, 18:02–18:36 — videoyu buradan oynat" aria-label="Video 1, 18:02–18:36 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>18:02–18:36</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Etsy's Pick, hızla satan ürünlere Etsy'nin verdiği işarettir.</p>
+<p class="acik">Emin'in açıklamasıyla bu, son 8-10 saat içinde 10'dan fazla sipariş almış ürünlere verilir.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="966" title="Video 1, 16:06–18:02 — videoyu buradan oynat" aria-label="Video 1, 16:06–18:02 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>16:06–18:02</button> <span class="vad">Video 1</span></div>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>Uygulamayı hiç indirmeden, birkaç masaüstü aramasıyla "anladım" sanmak. Sonuç: kare görsel kuralından personalization kutusuna kadar bu kursta öğreneceğin şeylerin çoğunun <em>sebebini</em> görmemiş olursun; sebebini görmediğin kuralı da ilk yoğun haftada unutursun. <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="461" title="Video 1, 7:41–18:21 — videoyu buradan oynat" aria-label="Video 1, 7:41–18:21 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>7:41–18:21</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>Müşterilerin yüzde kaçı telefondan giriyor ve bu senin ilk işini nasıl belirliyor?</li>
+<li>"Ad by seller" ile organik sonucun farkı ne? Etsy's Pick neye verilir?</li>
+<li>Beş filtre say ve her biri için o filtreyi işaretleyecek bir müşteri tarif et.</li>
+</ol>
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="461" title="Video 1, 7:41–18:21 — videoyu buradan oynat" aria-label="Video 1, 7:41–18:21 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>7:41–18:21</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Emin'in "birinci not" dediği kural buradadır: müşterilerin yaklaşık <strong>yüzde 80'i Etsy'yi telefondan kullanıyor.</strong> Sen satıcı olacaksın ama müşterinin ne gördüğünü bilmiyorsun — ve müşterinin gördüğünü bilmeyen satıcı, ilan hazırlayamaz.</p>
+<p><strong>Mantık.</strong> Emin bunu Amazon kıyasıyla anlatıyor: Amazon'dan herkes alışveriş yapmıştır. Yorumların nerede olduğunu, ürüne nasıl bakacağını herkes bilir. Peki Amazon'un <strong>satıcı panelini</strong> hayal edebilir misin? Hayır — çünkü hiç görmedin. Etsy'de durum tam tersidir: Türkiye'de neredeyse kimse Etsy'yi müşteri olarak bile kullanmamıştır. Müşteri gibi gezmeden fotoğrafların, başlığın, seçeneklerin müşteriye nasıl göründüğünü anlayamazsın.</p>
+<p><strong>Nasıl yapılır?</strong></p>
+<ol>
+<li>Telefonuna <strong>Etsy uygulamasını indir</strong> ve her gün gez. (Bu aynı zamanda Modül 2'de göreceğin "Etsy seni tanısın" hazırlığının ilk adımıdır.)</li>
+<li>Arama kutusuna müşterinin yazacağı gibi yaz — Emin'in örneği "Harry Potter shirt" araması. Karşına çıkan her fotoğraf bir <strong>listing</strong>'tir, yani tek bir ürün ilanı. Bazı görsellerin üzerine gelince video oynar. Videolu ilanların köşesinde oynatma işareti görürsün.</li>
+<li><strong>Filtreleri</strong> tek tek dene ve her birinde kendine sor: "Ben müşteri olsam bunu işaretler miydim?" Filtreler şunlar: <strong>ships from</strong> (nereden kargolanıyor — Almanya'da yaşayan müşteri Almanya'dan kargolayan satıcıyı süzebilir), <strong>free shipping</strong> (ücretsiz kargo) ve <strong>personalized/customizable</strong> (kişiselleştirilebilir, "kızımın ismini yazdıracağım" diyen müşteri bunu işaretler). Devamında fiyat aralığı, <strong>physical item / digital download</strong> ayrımı ve <strong>Star Seller</strong> (yalnız yüksek standartlı mağazaları göster). Sonra "show results". Müşterinin önem verdiği filtreler, senin ilanında bulunması gereken özelliklerdir.</li>
+<li>Sonuç sayfasında iki tür ilan gördüğünü fark et: en üstte <strong>"Ad by seller"</strong> yazanlar reklamla gelir. Altında mağaza adı yazanlar <strong>organic</strong> gelir — Google'daki gibi: önce reklamlar, sonra doğal sıralama. Bir de bazı ilanlarda <strong>Etsy's Pick</strong> etiketi görürsün. Emin'in açıklamasıyla bu, son 8-10 saat içinde 10'dan fazla sipariş almış, hızla satan ürünlere Etsy'nin verdiği işarettir.</li>
+</ol>
+<p><strong>Emin'in örneği.</strong> Filtre denemesini canlı yapıyor: Almanya + kişiselleştirilebilir + Star Seller filtreleriyle arama 4-8 sonuca düşüyor. Filtreleri kaldırınca liste yeniden doluyor. Ders şu: her filtre pazarı daraltır ve bazı müşteriler gerçekten böyle daraltılmış listelerden alışveriş yapar — senin ilanın o listelerde kalabilmelidir.</p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.3" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/ders-1-4">Ders 1.4 — Kime satıyorsun: Amerika pazarı ve kadın alıcı</a></span></div>
+</article>
+
+<article class="sayfa" id="ders-1-4" data-ad="Ders 1.4 — Kime satıyorsun: Amerika pazarı ve kadın alıcı" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.4</p>
+<h1 class="baslik">Kime satıyorsun: Amerika pazarı ve kadın alıcı</h1>
+<p class="giris">Ürün, fotoğraf ve dil seçimlerinin hepsi alıcının kim olduğuna göre yapılır — ve bu kursta alıcı çok net tarif edilir.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="1116" title="Video 1, 18:36–22:54 — videoyu buradan oynat" aria-label="Video 1, 18:36–22:54 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>18:36–22:54</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">Bu işte Amerika'ya satış yapılır.</p>
+<p class="acik">Emin pazarın büyüklüğünü ekranda okuyor: 7,5 milyon satıcı, 120 milyon ürün, 96 milyon alıcı; aktif müşteri sayısı 70 milyonun üzerinde.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1116" title="Video 1, 18:36–22:54 — videoyu buradan oynat" aria-label="Video 1, 18:36–22:54 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>18:36–22:54</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Bu müşterilerin yüzde 95'i kadın.</p>
+<p class="acik">Kadınlar hem kendine, hem çocuğuna, hem eşine alışveriş yapar — babanın doğum gününde siteye giren annedir: bir tişört, bir cüzdan, bir telefon kılıfı alır, her birine ~20 dolar öder.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1167" title="Video 1, 19:27–20:41 — videoyu buradan oynat" aria-label="Video 1, 19:27–20:41 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>19:27–20:41</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Amerika'da 20-25 dolara tişört almak tamamen sıradandır.</p>
+<p class="acik">Bir aile yılda 10-20 tişört alır. Türk aklıyla "1.000 liraya tişört mü olur" dememen için Emin bunu özellikle vurguluyor.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1241" title="Video 1, 20:41–23:08 — videoyu buradan oynat" aria-label="Video 1, 20:41–23:08 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>20:41–23:08</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Satışın motoru hediye günleridir.</p>
+<p class="acik">Christmas (Noel), Anneler Günü, Babalar Günü, doğum günleri, Halloween, Easter, St. Patrick's Day, yılbaşı. En çok hediye edilen üçlü: tişört, deri cüzdan ve name necklace (üzerinde isim yazan kolye).</p>
+</li>
+<li>
+<p class="kural">Mümkün olduğunca kişiselleştirilebilir ürün listeleyeceksin.</p>
+<p class="acik">Kişiye özel hediye saklanır; kulaklık "yerden yere gezer, kırılır." Ayrıca kişiselleştirme, Etsy'nin sıralamada dikkate aldığı bir özelliktir.</p>
+</li>
+<li>
+<p class="kural">Amerika'da esprili, argo, şakalı tişörtler gündelik giyimdir.</p>
+<p class="acik">Emin'in yorumu: "Türkiye'de birine böyle bir tişört giydirmeyi teklif etsen cinayet çıkar — ama burada satıyor." Bu espriyi yakalamak, Modül 3'teki konu seçiminin ta kendisidir.</p>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>Ürünü ve görseli kendi zevkine göre seçmek: erkek mankenli mockup, Türk esprisi, "bence şık" tasarım. Sonuç: %95'i kadın olan, hediye almak için gezen alıcıyla hiç eşleşmezsin; Etsy ilanını gösterir, tıklanmaz, görünürlüğün düşer (mekanizmayı Ders 3.7'de göreceksin). <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="1116" title="Video 1, 18:36–22:54 — videoyu buradan oynat" aria-label="Video 1, 18:36–22:54 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>18:36–22:54</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>Alıcı profilinin üç kritik sayısını söyle: telefon oranı, kadın oranı, tişört fiyat aralığı.</li>
+<li>En çok hediye edilen üç ürün ne? Satışın motoru hangi günler?</li>
+<li>Kişiselleştirilmiş ürün neden hem müşteriye hem Etsy algoritmasına iyi gelir?</li>
+</ol>
+<hr />
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="1116" title="Video 1, 18:36–22:54 — videoyu buradan oynat" aria-label="Video 1, 18:36–22:54 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>18:36–22:54</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Çünkü ürün, fotoğraf ve dil seçimlerinin hepsi alıcının kim olduğuna göre yapılır — ve bu kursta alıcı çok net tarif edilir.</p>
+<p><strong>Mantık ve rakamlar.</strong> Bu işte Amerika'ya satış yapılır. Emin videoda pazarın büyüklüğünü ekranda, Wikipedia'nın 2021 verisinden okuyor: <strong>7,5 milyon satıcı, 120 milyon ürün, 96 milyon alıcı</strong>; aktif müşteri sayısı 70 milyonun üzerinde. Kaba hesabı da şöyle: Amerika'da 300 milyon insan yaşıyorsa üçte biri kadarı Etsy müşterisi olabilir. Ve Emin'in <strong>"ikinci not"</strong> dediği kritik bilgi: <strong>bu müşterilerin yüzde 95'i kadın.</strong> Kadınlar hem kendine, hem çocuğuna, hem eşine alışveriş yapar — babanın doğum gününde siteye giren annedir: bir tişört, bir cüzdan, bir telefon kılıfı alır, her birine ~20 dolar öder. Emin kadın satıcıların bu işte çoğu zaman daha başarılı olduğunu söylüyor: alıcının gözünden bakabiliyorlar. Sitede gezerken de fark edeceksin: mankenlerin çoğu kadın.</p>
+<p>Alım gücü ve alışkanlıklar: Amerika'da 20-25 dolara tişört almak tamamen sıradandır. Bir aile yılda 10-20 tişört alır. Türk aklıyla "1.000 liraya tişört mü olur" dememen için Emin bunu özellikle vurguluyor. Satışın motoru <strong>hediye günleridir</strong>: Christmas (Noel), Anneler Günü, Babalar Günü, doğum günleri, Halloween (Cadılar Bayramı), Easter (Paskalya), St. Patrick's Day, yılbaşı. En çok hediye edilen üçlü: <strong>tişört, deri cüzdan ve name necklace</strong> (üzerinde isim yazan kolye).</p>
+<p>Niçin kişiye özel ürün? Emin'in kıyası: MediaMarkt'tan alınmış kutulu bir kulaklık mı daha çok hatıra değeri taşır, yoksa aranızdaki bir espriden çıkan sözün yazılı olduğu, adının bastırıldığı bir tişört mü? Kişiye özel hediye saklanır; kulaklık "yerden yere gezer, kırılır." Bu yüzden kişiselleştirilebilir ürünler Amerika'da çok satar — ve kişiselleştirme, Etsy'nin sıralamada dikkate aldığı bir özelliktir: mümkün olduğunca kişiselleştirilebilir ürün listeleyeceksin.</p>
+<p>Son parça kültürdür: Amerika'da esprili, argo, şakalı tişörtler gündelik giyimdir. Emin'in ekranda gösterdikleri: "I need a huge cocktail"; hemşirelere yönelik kafein esprisi ("günde dört sefer, aç karnına"); hafta sonu insanı için "coffee and soccer"; "yes, always right". Kendi yorumu: "Türkiye'de birine böyle bir tişört giydirmeyi teklif etsen cinayet çıkar — ama burada satıyor." Bu espriyi yakalamak, Modül 3'teki konu seçiminin ta kendisidir.</p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.4" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/ders-1-5">Ders 1.5 — İyi ve kötü listing: bir satın alma yolculuğu</a></span></div>
+</article>
+
+<article class="sayfa" id="ders-1-5" data-ad="Ders 1.5 — İyi ve kötü listing: bir satın alma yolculuğu" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.5</p>
+<h1 class="baslik">İyi ve kötü listing: bir satın alma yolculuğu</h1>
+<p class="giris">Bir ilanın bütün parçalarının ne işe yaradığı, ancak alıcının gözünden bakınca anlaşılır.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="1388" title="Video 1, 23:08–28:11 — videoyu buradan oynat" aria-label="Video 1, 23:08–28:11 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>23:08–28:11</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">İyi bir listing, müşterinin aklına gelebilecek her soruyu müşteri sormadan cevaplar.</p>
+<p class="acik">Cevaplayamazsa müşteri tıklar, gider. Buradaki ölçüt cümlesini ezberle.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1388" title="Video 1, 23:08–28:11 — videoyu buradan oynat" aria-label="Video 1, 23:08–28:11 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>23:08–28:11</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Bir listing'e en fazla 10 fotoğraf ve 1 video konabilir.</p>
+<p class="acik">Fotoğrafların arasında iki özel görsel vardır: size chart (beden tablosu: genişlik-uzunluk ölçüleri) ve color chart (renk tablosu: hangi renk gerçekte nasıl görünüyor).</p>
+</li>
+<li>
+<p class="kural">Kötü örnekte müşteriyi kaçıran şey cevapsız kalan sorudur.</p>
+<p class="acik">Espresso rengi color chart'ta yok, olan tablo da okunmuyor: "İsimleri okuyamıyorum arkadaşım. Şu an memnun bir müşteri değilim. Çıktım gittim bu mağazadan."</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1487" title="Video 1, 24:47–25:48 — videoyu buradan oynat" aria-label="Video 1, 24:47–25:48 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>24:47–25:48</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">İyi örnekte "Add your personalization" kutusu ne yazılacağını açıkça söylüyor.</p>
+<p class="acik">Az ama net renk seçeneği, her rengin üstünde tasarımın görünümü ve "Gold, white veya black yaz" diyen bir kutu. Soru sormadan, mesajlaşmadan sipariş tamam.</p>
+</li>
+<li>
+<p class="kural">Yolculuğun sonu: yorumlar, sepet, kargo seçimi.</p>
+<p class="acik">Sepete eklemeden önce yorumlara bakılır; sonra hediye olarak işaretleme (gift), adres ve kargo. Standart yerine priority (öncelikli) ya da yaklaşık 35 dolar ekstrayla ertesi gün uçak kargo; "bunu ödeyen de var."</p>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>İlanı satıcı gözüyle kurmak: okunmayan renk tablosu, eksik ölçü, ne yazılacağı belirsiz kişiselleştirme kutusu. Sonuç: müşteri sormaz — gider. Sen de "ziyaret var, satış yok" tablosuna bakar kalırsın. <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="1388" title="Video 1, 23:08–28:11 — videoyu buradan oynat" aria-label="Video 1, 23:08–28:11 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>23:08–28:11</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>Bir listing'te en fazla kaç fotoğraf ve video olur? Size chart ile color chart ne işe yarar?</li>
+<li>Kötü örnekte müşteriyi kaçıran neydi. İyi örnekte aynı sorunu ne çözdü?</li>
+<li>"İyi listing, sorulmayan soruları cevaplar" cümlesini kendi bir örneğinle açıkla.</li>
+</ol>
+<hr />
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="1388" title="Video 1, 23:08–28:11 — videoyu buradan oynat" aria-label="Video 1, 23:08–28:11 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>23:08–28:11</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Emin müşteri rolüne girip baştan sona bir tişört satın alıyor — çünkü bir ilanın bütün parçalarının ne işe yaradığı, ancak alıcının gözünden bakınca anlaşılır. Buradaki ölçüt cümlesini ezberle: <strong>iyi bir listing, müşterinin aklına gelebilecek her soruyu müşteri sormadan cevaplar.</strong> Cevaplayamazsa müşteri tıklar, gider.</p>
+<p><strong>Bir listing sayfasının parçaları.</strong> En fazla <strong>10 fotoğraf ve 1 video</strong> konabilir. Fotoğrafların arasında iki özel görsel vardır: <strong>size chart</strong> (beden tablosu: genişlik-uzunluk ölçüleri) ve <strong>color chart</strong> (renk tablosu: hangi renk gerçekte nasıl görünüyor). Sayfada ayrıca başlık, seçenekler (beden, renk), kişiselleştirme kutusu, açıklama ve yorumlar bulunur.</p>
+<p><strong>Emin'in yolculuğu — kötü örnek.</strong> Harry Potter hayranı arkadaşına tişört alacak. Beden seçimi için size chart'a bakıyor ve pratik taktiğini paylaşıyor: "Arkadaşım large giyiyor ama emin değilim. Eşinin bir tişörtünü ölçersin: genişlik 22 inç çıktıysa tabloda 22 inç hangi bedense onu alırsın. Large giyen adama bazen medium daha doğru çıkar." Sonra renk: espresso rengini seviyor, color chart'a bakıyor ve... espresso tabloda yok. Olan tablo da okunmuyor: "Ivory yazıyor, haki, pepper, white, black, granite, watermelon… İsimleri okuyamıyorum arkadaşım. Şu an memnun bir müşteri değilim. Çıktım gittim bu mağazadan." İşte bir müşteri kaybı, sebepleriyle: cevapsız kalan soru.</p>
+<p><strong>İyi örnek.</strong> İkinci mağazada az ama net renk seçeneği var. Seafoam rengini seçiyor, chart'ta nasıl durduğunu görüyor. Tasarımın hangi renk tişörtte hangi renk baskıyla (beyaz, gold, ivory üstünde siyah) gittiği fotoğraflarda gösterilmiş. Ve <strong>"Add your personalization"</strong> kutusu (müşterinin kişiselleştirme isteğini yazdığı alan) ne yazılacağını açıkça söylüyor: "Gold, white veya black yaz." Emin karar değiştirip siyah tişört + gold baskı istiyor, kutuya "gold" yazıyor. Soru sormadan, mesajlaşmadan sipariş tamam.</p>
+<p><strong>Yolculuğun sonu.</strong> Sepete eklemeden önce yorumlara bakıyor — kendi itirafıyla "keşke sepete eklemeden önce baksaydım": beş yıldızlar, bir tane de fotoğraflı yorum. Sonra sepet: hediye olarak işaretleme (gift), adres, kargo seçimi. Standart yerine <strong>priority</strong> (öncelikli, birkaç günde gelen) ya da yaklaşık <strong>35 dolar</strong> ekstrayla ertesi gün uçak kargo; "bunu ödeyen de var." Ödeme, sipariş tamam. <em>(Kargo fiyatları videolar arasında küçük farklarla anılıyor; Eğitmen Rehberi'ndeki Çelişkiler bölümüne bakın.)</em></p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.5" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/ders-1-6">Ders 1.6 — İş modeli: production partner ve siparişin yolculuğu</a></span></div>
+</article>
+
+<article class="sayfa" id="ders-1-6" data-ad="Ders 1.6 — İş modeli: production partner ve siparişin yolculuğu" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.6</p>
+<h1 class="baslik">İş modeli: production partner ve siparişin yolculuğu</h1>
+<p class="giris">Bu kursta üretim yapmayacaksın — ama üretimin nasıl aktığını bilmeyen bir mağaza yöneticisi, müşterisine tek cümle kuramaz.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="1699" title="Video 1, 28:19–34:59 — videoyu buradan oynat" aria-label="Video 1, 28:19–34:59 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>28:19–34:59</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">Sen tasarımı bulur, ilanı açar, müşteriyle ilgilenirsin.</p>
+<p class="acik">Sipariş geldiğinde aynı anda üreticinin sistemine de düşer ve Emin'in Teksas'ın Leander şehrindeki üretim tesisi ürünü basar, paketler, kargolar.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1699" title="Video 1, 28:19–34:59 — videoyu buradan oynat" aria-label="Video 1, 28:19–34:59 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>28:19–34:59</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Etsy bu ilişkiye production partner der ve Etsy'ye resmen bildirilir.</p>
+<p class="acik">Senin adına üretim yapan ortak demektir. Kaydını Modül 2'de, açılış sihirbazında yapacaksın.</p>
+</li>
+<li>
+<p class="kural">Sipariş, satıcı paneline (Shop Manager) düşer.</p>
+<p class="acik">Sipariş satırında müşterinin adı, sipariş numarası, "şu tarihe kadar kargola" (ship by date) uyarısı, aldığı ürün (beden, renk), adres ve seçtiği kargo yazar.</p>
+</li>
+<li>
+<p class="kural">Kullanılan baskı yöntemine DTF (direct to film) denir.</p>
+<p class="acik">Sanayi tipi yazıcılar tasarımları özel bir filme basar; çalışanlar filmleri kesip renk ve bedene göre boş tişörtlerle eşleştirir; sıcak pres 300 küsur Fahrenheit'ta baskıyı kumaşa yapıştırır. Öteki yöntemler screen print (serigrafi) ve DTG'dir.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="1908" title="Video 1, 31:48–34:16 — videoyu buradan oynat" aria-label="Video 1, 31:48–34:16 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>31:48–34:16</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Tracking code otomatik entegrasyonla mağazaya işlenir.</p>
+<p class="acik">USPS ya da UPS paketi okuttuğu an takip numarası mağazaya düşer, sipariş panelde completed bölümüne geçer ve müşteri paketi kendisi izler.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="2056" title="Video 1, 34:16–35:16 — videoyu buradan oynat" aria-label="Video 1, 34:16–35:16 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>34:16–35:16</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Müşterinin karşısındaki tek sorumlu sensin.</p>
+<p class="acik">"Sipariş sisteme düştükten sonra senin yapman gereken pek bir şey yok" — ama bu, üretimin senin derdin olmadığı anlamına gelmez.</p>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>İki uç: ya üretimle ilgilenmeye kalkmak (işin değil), ya da "üretici halleder" deyip süreci hiç bilmemek. İkincisinin sonucu ağırdır: müşteri "tişörtüm nerede?" diye sorduğunda pre-transit ile in transit'i ayırt edemeyen yönetici, yanlış söz verir — yanlış sözün faturasını Modül 4'te göreceksin. <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="1699" title="Video 1, 28:19–34:59 — videoyu buradan oynat" aria-label="Video 1, 28:19–34:59 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>28:19–34:59</button>.)</em></p></div>
+<div class="kutu dikkat"><h3>Gerçek bir öğrenciden</h3><p>Sözlü kontrolde siparişin yolculuğu sorulunca öğrenci süreci doğru anlattı — ama <strong>production partner, DTF ve tracking code</strong> kelimelerini hiç kullanmadı. "Üretici", "baskı", "takip" dedi. Süreci bilmek yetmez: panelde ve üreticiyle yazışmada bu kelimelerin İngilizcesiyle karşılaşacaksın. Anlatırken terimleri Türkçeleriyle eşleştire eşleştire kullan ki ekranda gördüğünde tanıyasın. <em>(Videodaki yeri: Video 1, <button class="t" type="button" data-v="1" data-s="1699" title="Video 1, 28:19–34:59 — videoyu buradan oynat" aria-label="Video 1, 28:19–34:59 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>28:19–34:59</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>Production partner nedir ve Etsy'ye bildirilmesi neden zorunludur?</li>
+<li>DTF'yi iki cümleyle anlat. Öteki iki baskı yöntemi hangileri?</li>
+<li>Tracking code mağazaya nasıl işlenir ve sipariş hangi bölüme geçer?</li>
+<li>Siparişin yolculuğunu şu dört terimi kullanarak baştan sona anlat: Shop Manager, production partner, DTF, tracking code.</li>
+</ol>
+<hr />
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="1699" title="Video 1, 28:19–34:59 — videoyu buradan oynat" aria-label="Video 1, 28:19–34:59 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>28:19–34:59</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Çünkü bu kursta üretim yapmayacaksın — ama üretimin nasıl aktığını bilmeyen bir mağaza yöneticisi, müşterisine tek cümle kuramaz.</p>
+<p><strong>Model.</strong> Sen tasarımı bulur, ilanı açar, müşteriyle ilgilenirsin. Sipariş geldiğinde aynı anda üreticinin sistemine de düşer ve Emin'in Teksas'ın Leander şehrindeki üretim tesisi ürünü basar, paketler, kargolar. Etsy bu ilişkiye <strong>production partner</strong> (senin adına üretim yapan ortak) der ve Etsy'ye resmen bildirilir (kaydını Modül 2'de, açılış sihirbazında yapacaksın).</p>
+<p><strong>Siparişin yolculuğu — Emin'in tesis turundan.</strong> Sipariş, satıcı paneline (<strong>Shop Manager</strong>, mağaza açılınca ortaya çıkan yönetim ekranı; Modül 4'ün konusu) düşer. Sipariş satırında müşterinin adı, sipariş numarası, "şu tarihe kadar kargola" (<strong>ship by date</strong>) uyarısı, aldığı ürün (beden, renk, "large espresso + Blue Jean large" örneği), adres ve seçtiği kargo (standart shipping 5,99 dolar) yazar. Üretimde: sanayi tipi yazıcılar tasarımları özel bir filme basar. Üzerlerinde hangi müşteriye, hangi bedene gideceği yazılıdır. Çalışanlar filmleri tek tek kesip renk ve bedene göre boş tişörtlerle eşleştirir; sıcak pres (heat press) 300 küsur Fahrenheit'ta baskıyı kumaşa yapıştırır, film soyulur, sağlamlaştırmak için bir kez daha preslenir.</p>
+<p>Bu yönteme <strong>DTF</strong> (direct to film) denir. Başka yöntemler de vardır — <strong>screen print</strong> (serigrafi) ve <strong>DTG</strong> (direct to garment; Emin "çok iyi bir print metodu değildir" diyor). Paket <strong>USPS</strong> veya <strong>UPS</strong>'e (Amerika'nın kargo şirketleri) teslim edilir. Şirket paketi okuttuğu an <strong>tracking code</strong> (takip numarası) otomatik entegrasyonla mağazaya işlenir, sipariş panelde <strong>completed</strong> bölümüne geçer ve müşteri paketi kendisi izler. Emin ekranda gösteriyor: paket Round Rock'tan çıkmış, aşama aşama ilerliyor.</p>
+<p>Görev sınırı, Emin'in cümlesiyle: "Sipariş sisteme düştükten sonra senin yapman gereken pek bir şey yok; üretim kısmında bir soru işareti olursa sana sorulur." Ama dikkat — bu, üretimin senin <em>derdin olmadığı</em> anlamına gelmez: müşterinin karşısındaki tek sorumlu sensin. Bu dengeyi Modül 4'te (Ders 4.10) derinlemesine işleyeceğiz.</p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.6" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/ders-1-7">Ders 1.7 — Ölçek, tempo ve &quot;geç mi kaldık?&quot; sorusu</a></span></div>
+</article>
+
+<article class="sayfa" id="ders-1-7" data-ad="Ders 1.7 — Ölçek, tempo ve &quot;geç mi kaldık?&quot; sorusu" data-ust="Modül 1 · Etsy&#x27;nin Mantığı" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Ders 1.7</p>
+<h1 class="baslik">Ölçek, tempo ve &quot;geç mi kaldık?&quot; sorusu</h1>
+<p class="giris">İşin ritmini ilk gün doğru kurmak gerekir — ve herkesin aklındaki "artık çok satıcı var" itirazının kayıtlarda net bir cevabı var.</p>
+<div class="videoda"><span class="etiket">Videoda</span><span class="vmet">Video 1, <button class="t" type="button" data-v="1" data-s="3153" title="Video 1, 52:33–54:37 — videoyu buradan oynat" aria-label="Video 1, 52:33–54:37 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>52:33–54:37</button></span></div>
+<h2 class="bolum">Anahtar noktalar</h2>
+<ol class="anahtar">
+<li>
+<p class="kural">İş, sürekli yeni ilan açıp her ilanı üst sıralara çıkarmaya çalışmaktır.</p>
+<p class="acik">Emin ekranda üç mağaza gösteriyor: 166 ilanlık sıradan bir mağaza, 4.800 ilanla 210.000 tişört satmış bir dev ve yalnızca hemşire tişörtü satan 33.000 satışlı tek konulu bir mağaza.</p>
+<div class="damga"><button class="t" type="button" data-v="1" data-s="3153" title="Video 1, 52:33–54:37 — videoyu buradan oynat" aria-label="Video 1, 52:33–54:37 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>52:33–54:37</button> <span class="vad">Video 1</span></div>
+</li>
+<li>
+<p class="kural">Beğendiğin mağazaları takip edip incelemek artık senin işinin parçasıdır.</p>
+<p class="acik">"Hoşuna giden, ilginç bulduğun mağazaları inceleyip takip etmen lazım; artık işimiz bu."</p>
+</li>
+<li>
+<p class="kural">Tempo: başta günde iki, alıştıkça üç-dört-beş ilan.</p>
+<p class="acik">İlk ilan mağaza açılırken yapılır (Modül 2). Sonrası günlük iştir.</p>
+</li>
+<li>
+<p class="kural">"Geç mi kaldık?" sorusuna Emin'in cevabı üç katlıdır.</p>
+<p class="acik">Benzetme: her mahallede fırın var ve hepsi ekmek satıyor. Mekanizma: Etsy kötü mağazaları sürekli kapattığı için satıcı sayısı katlanarak artmıyor. Tarih: "siz bu trene yolun çok başında biniyorsunuz."</p>
+</li>
+</ol>
+<div class="kutu hata"><h3>En sık yapılan hata ve sonucu</h3><p>İki hata: ilk hafta şevkle on ilan açıp sonra iki hafta hiç açmamak (algoritma düzenli üretim görmek ister — sezon dersinde ayrıntısı var) ve rakip incelemeyi "vakit kaybı" saymak. İkincisinin sonucu: Modül 3'te göreceğin konu seçimi ve konu bütünlüğü kararlarını körlemesine verirsin. <em>(Videoda: Video 1, <button class="t" type="button" data-v="1" data-s="3153" title="Video 1, 52:33–54:37 — videoyu buradan oynat" aria-label="Video 1, 52:33–54:37 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>52:33–54:37</button>.)</em></p></div>
+<section class="kontrol"><h3>Kendini kontrol et</h3>
+<ol>
+<li>Günlük ilan temposu nasıl başlar, nereye çıkar?</li>
+<li>"Geç kaldık" itirazına kurstaki üç cevabı say.</li>
+<li>4.800 ilanlık mağaza ile hemşire mağazasından çıkan iki farklı ders ne?</li>
+</ol>
+<hr />
+<p class="yanlis">Yanlış cevap verdiysen: Video 1, <button class="t" type="button" data-v="1" data-s="3153" title="Video 1, 52:33–54:37 — videoyu buradan oynat" aria-label="Video 1, 52:33–54:37 — videoyu buradan oynat"><svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>52:33–54:37</button>.</p>
+</section>
+<details class="tam"><summary><span class="arti"></span>Dersin tam metni</summary><div class="tam-ic md"><p><strong>Neden bu ders var?</strong> Çünkü işin ritmini ilk gün doğru kurmak gerekir — ve çünkü herkesin aklındaki "artık çok satıcı var" itirazının kayıtlarda net bir cevabı var.</p>
+<p><strong>Ölçek.</strong> Emin ekranda üç mağaza gösteriyor. Birincisi 166 ilanlık, sıradan bir mağaza. İkincisi 4.800 ilanlık, <strong>210.000 tişört satmış</strong> bir dev: "Her birinden 4 dolar kazansa 800.000 dolar kâr." Üçüncüsü tek konuya odaklı: yalnızca hemşire tişörtü satan, 33.000 satışlı, tişörtü 31 dolardan satan bir mağaza. "En az 10 dolar kâr ediyordur; 300.000 dolar eder. Bu mağazayı ben bir takip edeyim." Buradan iki ders çıkarıyor: iş, sürekli yeni ilan açıp her ilanı üst sıralara çıkarmaya çalışmaktır. Ve beğendiğin mağazaları takip edip incelemek artık senin işinin parçasıdır. "hoşuna giden, ilginç bulduğun mağazaları inceleyip takip etmen lazım; artık işimiz bu."</p>
+<p><strong>Tempo.</strong> İlk ilan mağaza açılırken yapılır (Modül 2). Sonrası günlük iştir: <strong>başta günde iki, alıştıkça üç-dört-beş ilan.</strong> <em>(Bu tempo ile Modül 3'teki "açılıştan önce 50 hazır klasör" hedefinin nasıl birleşeceği videolarda net bağlanmıyor; Eğitmen Rehberi'ndeki Çelişkiler bölümüne bakın.)</em></p>
+<p><strong>"Geç mi kaldık?"</strong> Emin'in cevabı üç katlıdır. Birincisi benzetme: her mahallede fırın var ve hepsi ekmek satıyor — çünkü herkes ekmek alıyor. Etsy'de de 90-100 milyon kullanıcı var ve herkes tişört giyiyor, hediye alıyor. İkincisi mekanizma: Etsy kötü mağazaları sürekli kapattığı için satıcı sayısı katlanarak artmıyor. Üçüncüsü tarih: Etsy eski bir pazar yeri ama Türkiye'de popülerleşmesi 2018-2019'dan, ivmesi 2020'den sonra; "siz bu trene yolun çok başında biniyorsunuz. Daha 10-15 sene burada insanlar ekmek yiyecek."</p></div></details>
+<div class="bitir"><button class="bitirdim" type="button" data-ders="1.7" aria-pressed="false"><span class="tik">✓</span><span class="yazi">Bitirdim</span></button><span class="sonraki">Sonraki: <a href="#/test-1">Modül 1 testi</a></span></div>
+</article>
+
+<article class="sayfa" id="test-1" data-ad="Modül 1 testi" data-ust="Modül 1 · Test" data-video="1" hidden>
+<p class="ust-satir">Modül 1 · Test</p>
+<h1 class="baslik">Modül 1 testi</h1>
+<div class="test-ust"><p>On soru; hepsi senaryo. Çeldiriciler bilerek inandırıcı yazıldı, aceleyle okuma. Şıkkı işaretle, hepsi bitince <b>Testi bitir</b>e bas: doğru-yanlış ancak o zaman görünür. Sonucunu eğitmeninle konuş.</p></div>
+<div class="test" data-test="m1" data-k="W3siZCI6ICJCIiwgImciOiAiRXRzeSBlbCBlbWXEn2kva2nFn2lzZWxsZcWfdGlybWUgcGF6YXLEsWTEsXI7IGZhdHVyYWzEsSBvcmlqaW5hbCBtYXJrYWzEsSDDvHLDvG4gQW1hem9uIGt1cmFsxLFkxLFyLCBFdHN5J2RlIGlsYW4ga2FwYXTEsXIuIiwgImRlcnMiOiAiMS4yIiwgInQiOiB7InYiOiAxLCAicyI6IDE5MCwgInoiOiAiMzoxMOKAkzEzOjQzIn19LCB7ImQiOiAiRCIsICJnIjogIiU4MCB0ZWxlZm9uIGJpbGdpc2luaW4gaWxrIHNvbXV0IGfDtnJldmkgdXlndWxhbWF5xLEgaW5kaXJpcCBoZXIgZ8O8biBtw7zFn3RlcmkgZ2liaSBnZXptZWt0aXI7IG3DvMWfdGVyaW5pbiBnw7ZyZMO8xJ/DvG7DvCBnw7ZybWV5ZW4gaWxhbiBoYXrEsXJsYXlhbWF6LiIsICJkZXJzIjogIjEuMyIsICJ0IjogeyJ2IjogMSwgInMiOiA0NjEsICJ6IjogIjc6NDHigJMxODoyMSJ9fSwgeyJkIjogIkEiLCAiZyI6ICJFbWluJ2luIGHDp8Sxa2xhbWFzxLF5bGEgRXRzeSdzIFBpY2ssIHNvbiA4LTEwIHNhYXR0ZSAxMCdkYW4gZmF6bGEgc2lwYXJpxZ8gYWxhbiBoxLF6bMSxIHNhdGFuIMO8csO8bmxlcmUgdmVyaWxlbiBpxZ9hcmV0dGlyOyDDvGNyZXRsZSB5YSBkYSBrYWzEsWPEsSBvbmF5bGEgaWxnaXNpIHlva3R1ci4iLCAiZGVycyI6ICIxLjMiLCAidCI6IHsidiI6IDEsICJzIjogOTY2LCAieiI6ICIxNjowNuKAkzE4OjAyIn19LCB7ImQiOiAiQyIsICJnIjogIkt1cnN1biBrcml0aWsgZ8O2emxlbWk6IGNldmFwc8SxeiBzb3J1ZGEgbcO8xZ90ZXJpIHNvcm1heiwgc2Vzc2l6Y2Ugw6fEsWthciDigJQgRW1pbidpbiBcIsOnxLFrdMSxbSBnaXR0aW0gYnUgbWHEn2F6YWRhblwiIMO2cm5lxJ9pLiIsICJkZXJzIjogIjEuNSIsICJ0IjogeyJ2IjogMSwgInMiOiAxNDg3LCAieiI6ICIyNDo0N+KAkzI1OjQ4In19LCB7ImQiOiAiQiIsICJnIjogIkFsxLFjxLFsYXLEsW4gJTk1J2kga2FkxLFuZMSxciB2ZSBoZWRpeWUgYWzEscWfdmVyacWfaW5pIMOnb8SfdW5sdWtsYSBvIHlhcGFyOyBiYWJhbsSxbiBkb8SfdW0gZ8O8bsO8bmRlIGFubmUgZ2lyZXIsIGJpcmthw6cgaGVkaXlleWkgYmlyZGVuIGFsxLFyLiIsICJkZXJzIjogIjEuNCIsICJ0IjogeyJ2IjogMSwgInMiOiAxMTY3LCAieiI6ICIxOToyN+KAkzIwOjQxIn19LCB7ImQiOiAiQyIsICJnIjogIkRURjogZmlsbSBiYXPEsWzEsXIg4oaSIGtlc2lsaXAgdGnFn8O2cnRsZSBlxZ9sZcWfdGlyaWxpciDihpIgc8SxY2FrIHByZXN0ZSBha3RhcsSxbMSxciDihpIgcGFrZXRsZW5pciwgVVNQUy9VUFMnZSB0ZXNsaW0gZWRpbGlyLiIsICJkZXJzIjogIjEuNiIsICJ0IjogeyJ2IjogMSwgInMiOiAxOTA4LCAieiI6ICIzMTo0OOKAkzM0OjE2In19LCB7ImQiOiAiRCIsICJnIjogIkbEsXLEsW4tZWttZWsgYmVuemV0bWVzaSArIEV0c3knbmluIGvDtnTDvCBtYcSfYXphbGFyxLEgdGVtaXpsZW1lc2kgKyBUw7xya2l5ZSdkZSBwb3DDvGxlcmxpxJ9pbiB5ZW5pbGnEn2kgKFwidHJlbmUgeW9sdW4gYmHFn8SxbmRhIGJpbml5b3JzdW51elwiKS4iLCAiZGVycyI6ICIxLjciLCAidCI6IHsidiI6IDEsICJzIjogMzE1MywgInoiOiAiNTI6MzPigJM1NDozNyJ9fSwgeyJkIjogIkEiLCAiZyI6ICJTdXBwbHksIGVsIGnFn8OnaWxpxJ9pIMWfYXJ0xLFuxLFuIHRlayBpc3Rpc25hc8SxZMSxciB2ZSDDvHJldGljaS90ZWRhcmlrw6dpIGJleWFuxLEgZ2VyZWt0aXJpci4iLCAiZGVycyI6ICIxLjIiLCAidCI6IHsidiI6IDEsICJzIjogMTkwLCAieiI6ICIzOjEw4oCTMTM6NDMifX0sIHsiZCI6ICJCIiwgImciOiAiVGVtcG8gZMO8emVubGkgdmUga2FkZW1lbGlkaXI6IGJhxZ90YSBnw7xuZGUgaWtpLCBhbMSxxZ90xLFrw6dhIMO8w6ctYmXFnzsgecSxxJ/EsXAgYsSxcmFrbWFrIGTDvHplbmxpIMO8cmV0aW0gZ8O2cmVuIGFsZ29yaXRtYXlsYSB1eXXFn21hei4iLCAiZGVycyI6ICIxLjciLCAidCI6IHsidiI6IDEsICJzIjogMzE1MywgInoiOiAiNTI6MzPigJM1NDozNyJ9fSwgeyJkIjogIkMiLCAiZyI6ICLDnHJldGltIMO8cmV0aWNpZGUgb2xzYSBkYSBtw7zFn3RlcmluaW4ga2FyxZ/EsXPEsW5kYWtpIHRlayBzb3J1bWx1IG1hxJ9hemEgecO2bmV0aWNpc2lkaXI7IGdlY2lrbWUgYmlsZ2lsZW5kaXJtZXNpIHZlIGLDvHTDvG4gdHJhZmlrIG9uZGFkxLFyLiIsICJkZXJzIjogIjEuNiIsICJ0IjogeyJ2IjogMSwgInMiOiAxNjk5LCAieiI6ICIyODoxOeKAkzM0OjU5In19XQ==">
+<div class="soru">
+<p class="sno">Soru 1</p>
+<p class="metin">Zeynep daha önce Amazon'da satıcılık yapmış. Tanınmış bir markanın orijinal parfümünü toptancıdan faturasıyla almış; "faturam var, orijinal ürün — Etsy'de de listelerim" diyor. Ne olur?</p>
+<div class="siklar" role="group" aria-label="Soru 1 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Faturayı Etsy'ye yükleyince ilan onaylanır; belgeli orijinal ürün satışında Amazon'da işleyen kural Etsy'de de aynen geçerlidir</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>İlan kapanır; Etsy'de ürünün senin el emeğinden veya kişiselleştirmenden geçmesi gerekir, fatura bu şartı karşılamaz</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Parfüm "supply" sayılacağı için üretici ya da tedarikçi beyanı doldurularak satılabilir; supply istisnası tam bu durum için vardır</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Yalnızca fiyatı yüksek girerse satabilir</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 2</p>
+<p class="metin">İşe yeni başlayan Deniz, "müşterilerin %80'i telefondan giriyor" bilgisini duydu. Bu bilginin ona yüklediği ilk somut görev hangisi?</p>
+<div class="siklar" role="group" aria-label="Soru 2 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>İlan görsellerini yatay hazırlamak; telefon ekranında yatay görsel daha büyük görünür ve tıklamayı artırır</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Mağazasını yalnızca mobil uygulamadan yönetmek; paneli telefondan kullanmak müşteriyle aynı ekranı görmek demektir</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Telefon uyumlu bir web sitesi kurmak; müşteri telefondan geliyorsa mağazanın mobil sitesi de olmalıdır</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Telefonuna Etsy uygulamasını indirip her gün müşteri gibi gezmek</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 3</p>
+<p class="metin">Aramada bir ilanın köşesinde "Etsy's Pick" etiketi görüyorsun. Kurstaki açıklamaya göre bu ne anlama gelir?</p>
+<div class="siklar" role="group" aria-label="Soru 3 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Ürün son 8-10 saat içinde 10'dan fazla sipariş almış, hızlı satıyor</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Satıcı bu etiket için Etsy'ye ücret ödemiş; Etsy's Pick, reklam bütçesi ayrılan ilanlara verilen bir işarettir</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Ürün Etsy editörlerince elle seçilmiş, kalıcı bir onay almış; etiket bir kez verilince ilandan bir daha düşmez</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>İlan Star Seller mağazaya ait</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 4</p>
+<p class="metin">Bir ilanda müşterinin sevdiği renk color chart'ta yok; tablodaki isimler de okunmuyor. Kursa göre en olası sonuç hangisi?</p>
+<div class="siklar" role="group" aria-label="Soru 4 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Müşteri satıcıya mesaj atıp rengi sorar; satış birkaç saat gecikir ama sonunda gerçekleşir</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Müşteri tabloya en yakın gördüğü rengi kendince seçer; yanlış çıkarsa iade riski doğar ama satış kaydedilir</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Müşteri hiçbir şey sormadan ilandan çıkar; satıcı bu kaybı hiç öğrenmez</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Etsy ilanı otomatik olarak yayından kaldırır</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 5</p>
+<p class="metin">Babanın doğum günü yaklaşıyor. Kursun alıcı profiline göre siteye büyük ihtimalle kim girer ve ne yapar?</p>
+<div class="siklar" role="group" aria-label="Soru 5 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Baba kendine hediye seçer; bu yüzden erkek mankenli ve erkek bedenli ilanlar öne çıkar</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Anne girer; tişört, cüzdan, telefon kılıfı gibi birkaç hediyeyi birden alır</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Çocuklar ortak hesap açar; dijital ürün alırlar</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Aile alışverişi mağazadan yapmayı tercih eder; hediye işi AVM'de çözülür, Etsy devreye girmez</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 6</p>
+<p class="metin">DTF üretiminde işlemlerin doğru sırası hangisi?</p>
+<div class="siklar" role="group" aria-label="Soru 6 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Tişörte doğrudan baskı → UV kurutma → katlama ve paketleme → USPS/UPS'e teslim</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Film kesimi → yazıcı kalibrasyonu → müşteri onayı → sıcak pres → kalite kontrol → paketleme → kargo firması seçimi → USPS'e teslim</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Tasarım filme basılır → filmler kesilip tişörtlerle eşleştirilir → sıcak preste kumaşa aktarılır → paketlenip USPS/UPS'e verilir</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Serigrafi kalıbı → boya → fırınlama → soğutma → paketleme → kargo</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 7</p>
+<p class="metin">Arkadaşın "Etsy'ye girmek için çok geç, milyonlarca satıcı var" diyor. Kurstaki cevabın özü hangisi?</p>
+<div class="siklar" role="group" aria-label="Soru 7 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Haklı; pazar doymuş durumda ve yeni satıcı ancak ciddi bir reklam bütçesiyle şans bulur</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Etsy yeni satıcılara ilk yıl algoritmada koruma verdiği için geç kalınmış sayılmaz</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Satıcı sayısı önemli değildir çünkü Etsy her ilanı sırayla ve eşit gösterir; sıra herkese gelir</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Herkes ekmek alır, her mahallede fırın vardır; Etsy kötü mağazaları temizler ve Türkiye'de popülerlik daha yeni — tren yolun başında</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 8</p>
+<p class="metin">Ayşe, takı yapımında kullanılan boncukları (kişiselleştirmesiz) satmak istiyor. Hangisi doğru?</p>
+<div class="siklar" role="group" aria-label="Soru 8 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Supply kategorisinde satabilir; bunun için üretici ya da tedarikçi olduğunu beyan etmesi gerekir</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Kişiselleştirme olmadan hiçbir şey satılamaz; Etsy'de el emeği şartının hiçbir istisnası yoktur, boncuk da satılamaz</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Boncuklar ancak dijital ürün olarak listelenebilir; fiziksel ara malzeme Etsy'nin alanına girmez</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Önce her boncuğa isim baskısı eklemelidir</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 9</p>
+<p class="metin">İki yeni satıcı: Merve ilk hafta şevkle 12 ilan açtı, sonra üç hafta hiç açmadı. Selin her gün iki ilanla başladı, alıştıkça üçe beşe çıkardı. Kursun temposuna uyan ve gerekçesi hangisi?</p>
+<div class="siklar" role="group" aria-label="Soru 9 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Merve; başlangıçta katalogu hızla doldurmak görünürlüğü artırır, sonra ara vermek istatistiği dinlendirir</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Selin; iş sürekli ve düzenli ilan açma işidir — başta günde iki, sonra üç-beş</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>İkisi de yanlış; ilk ay yalnızca mağaza sayfası düzenlenir</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>İkisi de doğru; toplam ilan sayısı aynıysa dağılım önemsizdir, algoritma aylık toplama bakar</span></button>
+</div></div>
+<div class="soru">
+<p class="sno">Soru 10</p>
+<p class="metin">Kargo şirketi kaynaklı bir gecikme oldu; müşteri kızgın bir mesaj attı. Üretim ve kargo tamamen production partner'da. Müşteriye kim, hangi tavırla cevap verir?</p>
+<div class="siklar" role="group" aria-label="Soru 10 şıkları">
+<button class="sik" type="button" data-h="A" aria-pressed="false"><span class="h">A</span><span>Üretici cevap verir; gecikme onun alanında doğdu ve teknik açıklamayı en doğru o yapar</span></button>
+<button class="sik" type="button" data-h="B" aria-pressed="false"><span class="h">B</span><span>Etsy müşteri hizmetleri devreye girer; kargo kaynaklı gecikmede satıcının beklemesi istenir</span></button>
+<button class="sik" type="button" data-h="C" aria-pressed="false"><span class="h">C</span><span>Sen cevap verirsin; müşteri karşısındaki tek sorumlu ve tek muhatap mağaza yöneticisidir</span></button>
+<button class="sik" type="button" data-h="D" aria-pressed="false"><span class="h">D</span><span>Kimse cevap vermez; takip sayfası bilgiyi zaten gösterir, araya girmek müşteriyi daha da kızdırır ---</span></button>
+</div></div>
+<div class="test-alt"><button class="dgm bitir-test" type="button">Testi bitir</button><button class="dgm yeniden" type="button" hidden>Baştan çöz</button><span class="uyari" role="status"></span></div>
+</div></article>
+
+<article class="sayfa" id="bos-m2" data-ust="Modül 2" hidden><p class="ust-satir">Modül 2</p><h1 class="baslik">Mağaza Kurulumu</h1><div class="bos-sayfa"><h2>Bu bölüm henüz eklenmedi</h2><p>Bu turda yalnız kapak ve Modül 1 hazırlandı. Modül 2 — Mağaza Kurulumu (5 ders) sıradaki turda eklenecek.</p></div></article>
+
+<article class="sayfa" id="bos-m3" data-ust="Modül 3" hidden><p class="ust-satir">Modül 3</p><h1 class="baslik">İlan Üretimi</h1><div class="bos-sayfa"><h2>Bu bölüm henüz eklenmedi</h2><p>Bu turda yalnız kapak ve Modül 1 hazırlandı. Modül 3 — İlan Üretimi (11 ders) sıradaki turda eklenecek.</p></div></article>
+
+<article class="sayfa" id="bos-m4" data-ust="Modül 4" hidden><p class="ust-satir">Modül 4</p><h1 class="baslik">Panel Yönetimi ve Sipariş Akışı</h1><div class="bos-sayfa"><h2>Bu bölüm henüz eklenmedi</h2><p>Bu turda yalnız kapak ve Modül 1 hazırlandı. Modül 4 — Panel Yönetimi ve Sipariş Akışı (16 ders) sıradaki turda eklenecek.</p></div></article>
+
+<article class="sayfa" id="bos-m5" data-ust="Modül 5" hidden><p class="ust-satir">Modül 5</p><h1 class="baslik">Müşteri İlişkileri ve Marka Güvenliği</h1><div class="bos-sayfa"><h2>Bu bölüm henüz eklenmedi</h2><p>Bu turda yalnız kapak ve Modül 1 hazırlandı. Modül 5 — Müşteri İlişkileri ve Marka Güvenliği (9 ders) sıradaki turda eklenecek.</p></div></article>
+
+<article class="sayfa" id="bos-ekler" data-ust="Ekler" hidden><p class="ust-satir">Ekler</p><h1 class="baslik">Ekler A–J</h1><div class="bos-sayfa"><h2>Bu bölüm henüz eklenmedi</h2><p>Yol haritası, sözlük, kontrol listeleri, mesaj şablonları, sezon takvimi, ücretler, yasaklı kelimeler, örnek listing, final sınavı ve video zaman indeksi sonraki turlarda eklenecek.</p></div></article>
+  </main>
+</div>
+
+<script>
+/* =========================================================================
+   Etsy Satıcı Eğitim Programı — sayfa mantığı
+   ========================================================================= */
+(function () {
+"use strict";
+
+var $  = function (s, k) { return (k || document).querySelector(s); };
+var $$ = function (s, k) { return Array.prototype.slice.call((k || document).querySelectorAll(s)); };
+
+/* ---------------------------------------------------------------- ilerleme */
+
+var ANAHTAR = "etsy-kursu-v1";
+var ilerleme = { dersler: {}, odevler: {}, testler: {} };
+
+try {
+  var kayit = localStorage.getItem(ANAHTAR);
+  if (kayit) {
+    var o = JSON.parse(kayit);
+    ilerleme.dersler = o.dersler || {};
+    ilerleme.odevler = o.odevler || {};
+    ilerleme.testler = o.testler || {};
+  }
+} catch (e) { /* localStorage kapalı olabilir — kurs yine çalışır */ }
+
+function kaydet() {
+  try { localStorage.setItem(ANAHTAR, JSON.stringify(ilerleme)); } catch (e) {}
+}
+
+/* ---------------------------------------------------------------- video */
+
+var oynatici = null, apiHazir = false, apiDenendi = false;
+var aktifVideo = null, bekleyen = null, yedekMod = false;
+
+function ss(s) {
+  s = Math.max(0, Math.round(s));
+  var sa = Math.floor(s / 3600), dk = Math.floor((s % 3600) / 60), sn = s % 60;
+  var p = function (n) { return n < 10 ? "0" + n : "" + n; };
+  return sa ? sa + ":" + p(dk) + ":" + p(sn) : dk + ":" + p(sn);
+}
+
+function durumYaz(html) { $("#durum").innerHTML = html; }
+
+function ytBaglanti(v, s) {
+  var a = $("#yt-ac"), id = gecerliId(v);
+  if (!a) return;
+  if (!id) { a.hidden = true; return; }
+  a.href = "https://www.youtube.com/watch?v=" + id + (s ? "&t=" + Math.round(s) + "s" : "");
+  a.hidden = false;
+}
+
+function gecerliId(v) {
+  var id = VIDEOLAR[v];
+  return id && !/^YOUTUBE_ID/.test(id) && id.trim() !== "" ? id.trim() : null;
+}
+
+function bosGoster(v) {
+  $("#oyn-kutu").innerHTML =
+    '<div class="oyn-bos"><span>Video ' + v + ' bağlantısı henüz eklenmedi.<br>' +
+    'Dosyanın başındaki <code>VIDEOLAR</code> bloğuna YouTube kimliğini yaz.</span></div>';
+  aktifVideo = null;
+}
+
+function apiYukle() {
+  if (apiDenendi) return;
+  apiDenendi = true;
+  var t = document.createElement("script");
+  t.src = "https://www.youtube.com/iframe_api";
+  t.onerror = function () {
+    yedekMod = true;
+    if (bekleyen) { var b = bekleyen; bekleyen = null; oynat(b.v, b.s, b.oto); }
+  };
+  document.head.appendChild(t);
+  setTimeout(function () {
+    if (!apiHazir) { yedekMod = true; if (bekleyen) { var b = bekleyen; bekleyen = null; oynat(b.v, b.s, b.oto); } }
+  }, 3500);
+}
+
+window.onYouTubeIframeAPIReady = function () {
+  apiHazir = true; yedekMod = false;
+  if (bekleyen) { var b = bekleyen; bekleyen = null; oynat(b.v, b.s, b.oto); }
+};
+
+function yedekGom(v, s, oto) {
+  var id = gecerliId(v);
+  if (!id) { bosGoster(v); return; }
+  $("#oyn-kutu").innerHTML =
+    '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?start=' + Math.round(s) +
+    (oto ? "&autoplay=1" : "") + '&rel=0&modestbranding=1" title="Video ' + v +
+    '" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  aktifVideo = v;
+}
+
+function oynat(v, s, oto) {
+  s = s || 0;
+  var id = gecerliId(v);
+  ytBaglanti(v, s);
+  if (!id) {
+    bosGoster(v);
+    durumYaz("Video " + v + " bağlantısı henüz eklenmedi.");
+    return;
+  }
+  seritAc();
+  if (yedekMod) { yedekGom(v, s, oto); guncelleDurum(v, s, oto); return; }
+  if (!apiHazir) { bekleyen = { v: v, s: s, oto: oto }; apiYukle(); durumYaz("Oynatıcı yükleniyor…"); return; }
+
+  if (!oynatici) {
+    $("#oyn-kutu").innerHTML = '<div id="yt"></div>';
+    oynatici = new YT.Player("yt", {
+      videoId: id,
+      playerVars: (function () {
+        var pv = { start: Math.round(s), rel: 0, modestbranding: 1, playsinline: 1 };
+        if (location.protocol === "http:" || location.protocol === "https:") pv.origin = location.origin;
+        return pv;
+      })(),
+      events: {
+        onReady: function (e) { if (oto) e.target.playVideo(); },
+        onError: function () {
+          durumYaz("Video bu sayfada oynatılamıyor — sağdaki <b>YouTube'da aç</b> bağlantısını kullan.");
+        }
+      }
+    });
+    aktifVideo = v;
+  } else if (aktifVideo !== v) {
+    if (oto) oynatici.loadVideoById({ videoId: id, startSeconds: s });
+    else oynatici.cueVideoById({ videoId: id, startSeconds: s });
+    aktifVideo = v;
+  } else {
+    oynatici.seekTo(s, true);
+    if (oto) oynatici.playVideo();
+  }
+  guncelleDurum(v, s, oto);
+}
+
+function guncelleDurum(v, s, oto) {
+  if (oto) durumYaz("Video " + v + " · <b>" + ss(s) + "</b> saniyesinden oynuyor");
+  else if (s > 0) durumYaz("Video " + v + " · <b>" + ss(s) + "</b> hazır");
+  else durumYaz("Video " + v + " yüklendi — bir dakika düğmesine bas");
+}
+
+function seritAc() {
+  var sr = $("#serit");
+  if (sr.classList.contains("kapali")) { sr.classList.remove("kapali"); $("#gizle").textContent = "Videoyu gizle"; try { localStorage.setItem(ANAHTAR + "-serit", "acik"); } catch (e) {} }
+}
+
+$("#gizle").addEventListener("click", function () {
+  var sr = $("#serit"), k = sr.classList.toggle("kapali");
+  this.textContent = k ? "Videoyu göster" : "Videoyu gizle";
+  try { localStorage.setItem(ANAHTAR + "-serit", k ? "kapali" : "acik"); } catch (e) {}
+});
+try {
+  if (localStorage.getItem(ANAHTAR + "-serit") === "kapali") {
+    $("#serit").classList.add("kapali"); $("#gizle").textContent = "Videoyu göster";
+  }
+} catch (e) {}
+
+/* dakika düğmeleri — tek dinleyici */
+document.addEventListener("click", function (e) {
+  var b = e.target.closest ? e.target.closest("button.t") : null;
+  if (!b) return;
+  e.preventDefault();
+  $$("button.t.calan").forEach(function (x) { x.classList.remove("calan"); });
+  b.classList.add("calan");
+  oynat(parseInt(b.dataset.v, 10), parseInt(b.dataset.s, 10), true);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+/* ---------------------------------------------------------------- yönlendirme */
+
+function hashId() { return location.hash.replace(/^#\/?/, ""); }
+
+var SAYFALAR = $$(".sayfa");
+var VAR_OLAN = {};
+SAYFALAR.forEach(function (s) { VAR_OLAN[s.id] = s; });
+
+function git(id, kaydir) {
+  if (!VAR_OLAN[id]) id = SAYFALAR[0].id;
+  SAYFALAR.forEach(function (s) { s.hidden = s.id !== id; });
+  var s = VAR_OLAN[id];
+
+  $$("#menu a").forEach(function (a) { a.classList.toggle("aktif", a.getAttribute("href") === "#/" + id); });
+  var aktifLink = $('#menu a[href="#/' + id + '"]');
+  if (aktifLink) {
+    var grup = aktifLink.closest(".m-grup");
+    if (grup && !grup.classList.contains("acik")) grupAc(grup, true);
+  }
+
+  document.title = (s.dataset.ad ? s.dataset.ad + " — " : "") + "Etsy Satıcı Eğitim Programı";
+
+  var v = s.dataset.video;
+  if (v) {
+    var vn = parseInt(v, 10);
+    if (aktifVideo !== vn) oynat(vn, 0, false);
+  }
+
+  if (kaydir !== false) window.scrollTo(0, 0);
+  kapatMobil();
+}
+
+function grupAc(grup, ac) {
+  grup.classList.toggle("acik", ac);
+  var b = $(".m-bas", grup);
+  if (b) b.setAttribute("aria-expanded", ac ? "true" : "false");
+}
+
+$$(".m-bas").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var g = b.closest(".m-grup");
+    grupAc(g, !g.classList.contains("acik"));
+  });
+});
+
+window.addEventListener("hashchange", function () {
+  git(hashId() || SAYFALAR[0].id);
+});
+
+document.addEventListener("click", function (e) {
+  var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if (!a) return;
+  var id = a.getAttribute("href").replace(/^#\/?/, "");
+  if (!VAR_OLAN[id]) return;
+  e.preventDefault();
+  if (hashId() === id) git(id); else location.hash = "/" + id;
+});
+
+/* ---------------------------------------------------------------- mobil menü */
+
+function kapatMobil() { $("#yan").classList.remove("acik"); $("#mobil").setAttribute("aria-expanded", "false"); }
+$("#mobil").addEventListener("click", function () {
+  var a = $("#yan").classList.toggle("acik");
+  this.setAttribute("aria-expanded", a ? "true" : "false");
+});
+
+/* ---------------------------------------------------------------- ders bitirme */
+
+var TOPLAM_DERS = parseInt(document.body.dataset.toplamDers, 10) || 48;
+
+function sayacGuncelle() {
+  var n = Object.keys(ilerleme.dersler).filter(function (k) { return ilerleme.dersler[k]; }).length;
+  $("#sayi").textContent = n;
+  $("#cubuk-i").style.width = (n / TOPLAM_DERS * 100) + "%";
+  $$("#menu a[data-ders]").forEach(function (a) {
+    a.classList.toggle("bitti", !!ilerleme.dersler[a.dataset.ders]);
+  });
+  $$(".bitirdim[data-ders]").forEach(function (b) {
+    var t = !!ilerleme.dersler[b.dataset.ders];
+    b.classList.toggle("tamam", t);
+    b.querySelector(".yazi").textContent = t ? "Bitirdim" : "Bitirdim";
+    b.setAttribute("aria-pressed", t ? "true" : "false");
+  });
+}
+
+document.addEventListener("click", function (e) {
+  var b = e.target.closest ? e.target.closest(".bitirdim[data-ders]") : null;
+  if (!b) return;
+  var d = b.dataset.ders;
+  ilerleme.dersler[d] = !ilerleme.dersler[d];
+  kaydet(); sayacGuncelle();
+});
+
+$("#sifirla").addEventListener("click", function () {
+  if (!confirm("Bütün ilerleme silinecek: bitirilen dersler ve test sonuçları. Devam edilsin mi?")) return;
+  ilerleme = { dersler: {}, odevler: {}, testler: {} };
+  kaydet(); sayacGuncelle();
+  $$(".test").forEach(testSifirla);
+});
+
+/* ---------------------------------------------------------------- testler */
+
+function cozAnahtar(b64) {
+  try { return JSON.parse(decodeURIComponent(escape(atob(b64)))); } catch (e) { return null; }
+}
+
+function isaretle(el, im) {
+  var s = document.createElement("span");
+  s.className = "isaret";
+  s.setAttribute("aria-hidden", "true");
+  s.textContent = im;
+  el.appendChild(s);
+}
+
+function testSifirla(t) {
+  t.dataset.bitti = "";
+  $$(".sik", t).forEach(function (s) {
+    s.classList.remove("secili", "dogru", "yanlis");
+    s.disabled = false;
+    var im = $(".isaret", s); if (im) im.remove();
+  });
+  $$(".gerekce", t).forEach(function (g) { g.remove(); });
+  var p = $(".puan", t); if (p) p.remove();
+  $(".uyari", t).textContent = "";
+  $(".bitir-test", t).hidden = false;
+  $(".yeniden", t).hidden = true;
+}
+
+$$(".test").forEach(function (t) {
+  var kod = t.dataset.test;
+
+  t.addEventListener("click", function (e) {
+    var s = e.target.closest ? e.target.closest(".sik") : null;
+    if (!s || t.dataset.bitti === "1") return;
+    var kutu = s.closest(".siklar");
+    $$(".sik", kutu).forEach(function (x) { x.classList.remove("secili"); x.setAttribute("aria-pressed", "false"); });
+    s.classList.add("secili"); s.setAttribute("aria-pressed", "true");
+    $(".uyari", t).textContent = "";
+  });
+
+  $(".bitir-test", t).addEventListener("click", function () {
+    var sorular = $$(".soru", t);
+    var eksik = sorular.filter(function (q) { return !$(".sik.secili", q); });
+    if (eksik.length) {
+      $(".uyari", t).textContent = eksik.length + " soru boş kaldı. Hepsini işaretle, sonra bitir.";
+      eksik[0].scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
+    var anahtar = cozAnahtar(t.dataset.k);
+    if (!anahtar) { $(".uyari", t).textContent = "Cevap anahtarı okunamadı."; return; }
+
+    var dogru = 0;
+    sorular.forEach(function (q, i) {
+      var cev = anahtar[i];
+      var secim = $(".sik.secili", q);
+      var harf = secim.dataset.h;
+      $$(".sik", q).forEach(function (x) {
+        x.disabled = true;
+        if (x.dataset.h === cev.d) { x.classList.add("dogru"); isaretle(x, "\u2713"); }
+        else if (x === secim) { x.classList.add("yanlis"); isaretle(x, "\u2715"); }
+      });
+      if (harf === cev.d) { dogru++; return; }
+
+      var g = document.createElement("div");
+      g.className = "gerekce";
+      var damga = cev.t
+        ? '<span class="damga">' + dugme(cev.t.v, cev.t.s, cev.t.z) + ' <span class="vad">Video ' + cev.t.v + ' · Ders ' + cev.ders + '</span></span>'
+        : "";
+      g.innerHTML = "<b>Doğrusu " + cev.d + ".</b> " + cev.g + damga;
+      q.appendChild(g);
+    });
+
+    var p = document.createElement("div");
+    p.className = "puan";
+    var yorum = dogru >= 8 ? "Konu oturmuş. Sonucu yine de eğitmeninle konuş."
+              : dogru >= 6 ? "Fena değil. Yanlışlarının dakika düğmelerine bas, o bölümleri tekrar izle."
+              : "Modülü baştan gözden geçir. Aşağıdaki dakika düğmeleri seni doğru yerlere götürür.";
+    p.innerHTML = '<span class="buyuk">' + dogru + " / " + sorular.length + '</span><span class="yorum">' + yorum + "</span>";
+    t.insertBefore(p, t.firstChild);
+    p.scrollIntoView({ block: "start", behavior: "smooth" });
+
+    t.dataset.bitti = "1";
+    $(".bitir-test", t).hidden = true;
+    $(".yeniden", t).hidden = false;
+    ilerleme.testler[kod] = { d: dogru, t: sorular.length };
+    kaydet();
+  });
+
+  $(".yeniden", t).addEventListener("click", function () { testSifirla(t); t.scrollIntoView({ block: "start" }); });
+});
+
+function dugme(v, s, z) {
+  return '<button class="t" type="button" data-v="' + v + '" data-s="' + s +
+    '" title="Video ' + v + ", " + z + ' — videoyu buradan oynat" aria-label="Video ' + v + ", " + z + ' — videoyu buradan oynat">' +
+    '<svg viewBox="0 0 7 8" aria-hidden="true"><path d="M0 0l7 4-7 4z"/></svg>' + z + "</button>";
+}
+
+/* ---------------------------------------------------------------- arama */
+
+function norm(s) {
+  return s.toLocaleLowerCase("tr")
+    .replace(/[çÇ]/g, "c").replace(/[ğĞ]/g, "g").replace(/[ıİI]/g, "i")
+    .replace(/[öÖ]/g, "o").replace(/[şŞ]/g, "s").replace(/[üÜ]/g, "u")
+    .replace(/[âÂ]/g, "a").replace(/[îÎ]/g, "i").replace(/[ûÛ]/g, "u");
+}
+
+var indeks = null;
+function indeksKur() {
+  if (indeks) return indeks;
+  indeks = SAYFALAR.filter(function (s) { return s.dataset.ad; }).map(function (s) {
+    var metin = (s.innerText || s.textContent || "").replace(/\s+/g, " ").trim();
+    return { id: s.id, ad: s.dataset.ad, ust: s.dataset.ust || "", metin: metin, nmetin: norm(metin), nad: norm(s.dataset.ad) };
+  });
+  return indeks;
+}
+
+var araKutu = $("#ara"), sonucKutu = $("#ara-sonuc"), menuKutu = $("#menu");
+
+function kacir(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+function ara() {
+  var q = araKutu.value.trim();
+  if (q.length < 2) { sonucKutu.hidden = true; menuKutu.hidden = false; return; }
+  var nq = norm(q);
+  var bul = [];
+  indeksKur().forEach(function (it) {
+    var pAd = it.nad.indexOf(nq), pMet = it.nmetin.indexOf(nq);
+    if (pAd < 0 && pMet < 0) return;
+    var baglam = "";
+    if (pMet >= 0) {
+      var b = Math.max(0, pMet - 42), e = Math.min(it.metin.length, pMet + q.length + 60);
+      baglam = (b > 0 ? "…" : "") + it.metin.slice(b, pMet) + "" +
+               it.metin.slice(pMet, pMet + q.length) + "" + it.metin.slice(pMet + q.length, e) +
+               (e < it.metin.length ? "…" : "");
+    }
+    bul.push({ id: it.id, ad: it.ad, ust: it.ust, baglam: baglam, skor: (pAd >= 0 ? 0 : 1) });
+  });
+  bul.sort(function (a, b) { return a.skor - b.skor; });
+
+  if (!bul.length) {
+    sonucKutu.innerHTML = '<div class="ara-bos">"' + kacir(q) + '" için sonuç yok.</div>';
+  } else {
+    sonucKutu.innerHTML = '<div class="ara-bas">' + bul.length + " sonuç</div>" + bul.slice(0, 40).map(function (r) {
+      var bg = r.baglam ? "<span>" + kacir(r.baglam).replace("", "<mark>").replace("", "</mark>") + "</span>"
+                        : "<span>" + kacir(r.ust) + "</span>";
+      return '<a href="#/' + r.id + '"><b>' + kacir(r.ad) + "</b>" + bg + "</a>";
+    }).join("");
+  }
+  sonucKutu.hidden = false; menuKutu.hidden = true;
+}
+
+araKutu.addEventListener("input", ara);
+araKutu.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") { araKutu.value = ""; ara(); araKutu.blur(); }
+});
+sonucKutu.addEventListener("click", function (e) {
+  if (e.target.closest("a")) { araKutu.value = ""; sonucKutu.hidden = true; menuKutu.hidden = false; }
+});
+
+/* ---------------------------------------------------------------- başlat */
+
+sayacGuncelle();
+if ("scrollRestoration" in history) { try { history.scrollRestoration = "manual"; } catch (e) {} }
+git(hashId() || SAYFALAR[0].id, false);
+window.scrollTo(0, 0);
+requestAnimationFrame(function () { window.scrollTo(0, 0); });
+setTimeout(function () { window.scrollTo(0, 0); }, 80);
+apiYukle();
+
+})();
+
+</script>
+</body>
+</html>
